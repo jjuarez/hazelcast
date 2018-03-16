@@ -1,0 +1,19 @@
+[Unit]
+Description=Hazelcast server
+After=network.target
+
+[Service]
+Type=forking
+PermissionsStartOnly=true
+PIDFile=/run/hazelcast.pid
+User=<%= $::hazelcast::user %>
+Group=<%= $::hazelcast::group %>
+WorkingDirectory=<%= $::hazelcast::install_dir %>
+RuntimeDirectory=<%= $::hazelcast::install_dir %>
+Environment=JAVA_HOME=<%= $::hazelcast::java %> HAZELCAST_HOME=<%= $::hazelcast::install_dir %> CLASS_PATH=$HAZELCAST_HOME/lib/hazelcast-all-$::hazelcast::version.jar
+ExecStart=<%= $JAVA_HOME/bin/java $::hazelcast::java_options com.hazelcast.core.server.StartServer %>
+ExecStop=/bin/kill -s TERM $MAINPID
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
