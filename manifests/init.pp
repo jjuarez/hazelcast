@@ -1,7 +1,7 @@
 #
 # hazelcast
 #
-class init(
+class hazelcast(
   Optional[Stdlib::Absolutepath] $install_dir,
   Optional[Stdlib::Absolutepath] $config_dir,
   Optional[String]               $version,
