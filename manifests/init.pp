@@ -2,15 +2,17 @@
 # hazelcast
 #
 class hazelcast(
-  Optional[Stdlib::Absolutepath] $install_dir,
-  Optional[Stdlib::Absolutepath] $config_dir,
-  Optional[String]               $version,
-  Optional[String]               $service_name,
-  Optional[Boolean]              $manage_user,
-  Optional[String]               $user,
-  Optional[String]               $group,
-  Optional[String]               $java,
-  Optional[String]               $java_options,
+  Optional[Stdlib::Absolutepath]    $install_dir,
+  Optional[Stdlib::Absolutepath]    $config_dir,
+  Optional[String]                  $version,
+  Optional[Stdlib::Httpsurl]        $download_url,
+  Optional[String]                  $service_name,
+  Optional[Boolean]                 $manage_user,
+  Optional[String]                  $user,
+  Optional[String]                  $group,
+  Optional[String]                  $java,
+  Optional[String]                  $java_options,
+  Optional[Stdlib::Ensure::Service] $service_ensure,
 ){
 
   File {
