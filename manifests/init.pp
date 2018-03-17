@@ -11,7 +11,6 @@ class hazelcast(
   Optional[String]               $group,
   Optional[String]               $java,
   Optional[String]               $java_options,
-  Optional[String]               $hazelcast_options
 ){
 
   contain hazelcast::install
