@@ -4,7 +4,9 @@
 class hazelcast::service {
   include ::systemd::systemctl::daemon_reload
 
-  file { '/lib/systemd/system/hazelcast.service':
+  $systemd_unit_file = '/lib/systemd/system/hazelcast.service'
+
+  file { $systemd_unit_file:
     ensure  => present,
     owner   => 'root',
     group   => 'root',
@@ -16,6 +18,6 @@ class hazelcast::service {
     ensure     => $::hazelcast::service_ensure,
     hasrestart => true,
     hasstatus  => true,
-    subscribe  => File['/usr/lib/systemd/system/hazelcast.service'],
+    subscribe  => File[$systemd_unit_file],
   }
 }
