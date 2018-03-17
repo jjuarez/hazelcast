@@ -1,8 +1,12 @@
 ---
 version: 5
 
+defaults:
+  datadir: 'data'
+  data_hash: 'data_yaml'
+
 hierarchy:
-  - name: "OS distro versions"
-    path: "data/os/%{facts.os.family}-%{facts.os.release.major}.yaml"
-  - name: "Common data"
-    path: "data/common.yaml"
+  - name: 'OS distro support'
+    path: 'os/%{facts.os.family}-%{facts.os.release.major}.yaml'
+  - name: 'Common data'
+    path: 'common.yaml'
