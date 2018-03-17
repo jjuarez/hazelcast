@@ -4,7 +4,7 @@
 class hazelcast::service {
   include ::systemd::systemctl::daemon_reload
 
-  file { '/usr/lib/systemd/system/hazelcast.service':
+  file { '/lib/systemd/system/hazelcast.service':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
