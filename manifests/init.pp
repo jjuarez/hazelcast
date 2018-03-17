@@ -12,7 +12,7 @@ class hazelcast(
   Optional[String]               $java,
   Optional[String]               $java_options,
 ){
-  
+
   File {
     owner => $hazelcast::user,
     group => $hazelcast::group,
