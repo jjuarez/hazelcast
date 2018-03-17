@@ -5,11 +5,11 @@ class hazelcast::service {
   include ::systemd::systemctl::daemon_reload
 
   file { '/usr/lib/systemd/system/hazelcast.service':
-    ensure   => present,
-    owner    => 'root',
-    group    => 'root',
-    mode     => '0644',
-    contents => epp("${module_name}/hazelcast.service.epp", { }),
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => epp("${module_name}/hazelcast.service.epp", { }),
   }
 
   service { $::hazelcast::service_name:
