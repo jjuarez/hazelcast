@@ -5,18 +5,8 @@ class hazelcast::install {
   include '::archive'
 
   if $::hazelcast::manage_user {
-
-    group { $::hazelcast::group:
-      ensure => present,
-    }
-
-    user { $::hazelcast::user:
-      ensure =>present,
-      gid    =>$::hazelcast::group,
-    }
-
-    ensure_resource($group)
-    ensure_resource($user)
+    ensure_resource('group')
+    ensure_resource('user', { gid =>$::hazelcast::group })
   }
 
   archive { '/tmp/hazelcast.zip':
