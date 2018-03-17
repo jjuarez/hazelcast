@@ -6,7 +6,7 @@ class hazelcast::config inherits hazelcast {
   file { "${::halezcast::config_dir}/hazelcast.xml":
     mode    => '0640',
     content => epp("${module_name}/hazelcast.xml.epp", { }),
-    require => [File[$::hazelcast::install_dir], Package['java']], # TODO: I don't like this dependency at all, but
+    require => File[$::hazelcast::install_dir],
   }
   -> file { $::hazelcast::config_dir:
     ensure => directory,
