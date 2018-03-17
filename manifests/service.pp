@@ -16,6 +16,6 @@ class hazelcast::service {
     ensure     => $::hazelcast::service_ensure,
     hasrestart => true,
     hasstatus  => true,
-    subscribe  => [File['/usr/lib/systemd/system/hazelcast.service'], File["${::hazelcast::config_dir}/hazelcast.conf"]],
+    subscribe  => File['/usr/lib/systemd/system/hazelcast.service'],
   }
 }
