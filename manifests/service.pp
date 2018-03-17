@@ -9,7 +9,7 @@ class hazelcast::service {
     owner  => 'root',
     group  => 'root',
     mode   => '0644',
-    source => epp("${module_name}/epp/hazelcast.service.epp", { }),
+    source => epp("${module_name}/hazelcast.service.epp", { }),
   }
 
   service { $::hazelcast::service_name:
