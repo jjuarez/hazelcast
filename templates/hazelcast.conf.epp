@@ -1,3 +1,2 @@
 JAVA_HOME=<%= $hazelcast::java_home %>
 HAZELCAST_HOME=<%= $hazelcast::install_dir %>
-JAVA_OPTS="<%= $hazelcast::java_options %>"

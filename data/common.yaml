@@ -7,7 +7,7 @@ hazelcast::service_ensure: 'running'
 hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
-hazelcast::download_url: 'https://download.hazelcast.com/download.jsp?version=hazelcast-3.9.3&type=tar&p=288631785'
+hazelcast::download_url: 'https://download.hazelcast.com/download.jsp?version=hazelcast-3.9.3&type=tar'
 hazelcast::java_home: '/usr/lib/jvm/jre1.8.0_131'
 hazelcast::java: '/usr/lib/jvm/jre1.8.0_131/bin/java'
 hazelcast::java_options: '-server -X256k -Xms64m -Xmx512m -Djava.net.preferIPv4Stack=true -Dhazelcast.config=/etc/hazelcast/hazelcast.xml'
