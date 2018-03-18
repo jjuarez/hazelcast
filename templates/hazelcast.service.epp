@@ -1,16 +1,17 @@
 [Unit]
-Description=Hazelcast server
+Description=HazelcastServer
 After=network.target
 
 [Service]
 Type=forking
 PermissionsStartOnly=true
 PIDFile=/run/hazelcast.pid
-User=<%= $::hazelcast::user %>
-Group=<%= $::hazelcast::group %>
-WorkingDirectory=<%= $::hazelcast::install_dir %>
-EnvironmentFile=<%= $::hazelcast::config_dir %>/hazelcast.conf
-ExecStart=${JAVA_HOME}/bin/java <%= $::hazelcast::java_options %> com.hazelcast.core.server.StartServer
+User=<%= $hazelcast::user %>
+Group=<%= $hazelcast::group %>
+Type=simple
+WorkingDirectory=<%= $hazelcast::install_dir %>
+EnvironmentFile=<%= $hazelcast::config_dir %>/hazelcast.conf
+ExecStart=${JAVA_HOME}/bin/java $JAVA_OPTS -jar <%= $hazelcast::install_dir %>/lib/hazelcast-all-<%= $hazelcast::version %>.jar com.hazelcast.core.server.StartServer
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
 
