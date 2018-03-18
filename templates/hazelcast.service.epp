@@ -11,7 +11,7 @@ Group=<%= $hazelcast::group %>
 Type=simple
 WorkingDirectory=<%= $hazelcast::install_dir %>
 EnvironmentFile=<%= $hazelcast::config_dir %>/hazelcast.conf
-ExecStart=${JAVA_HOME}/bin/java $JAVA_OPTS -jar <%= $hazelcast::install_dir %>/lib/hazelcast-all-<%= $hazelcast::version %>.jar com.hazelcast.core.server.StartServer
+ExecStart=<%= $hazelcast::java %> ${JAVA_OPTS} -jar <%= $hazelcast::install_dir %>/lib/hazelcast-all-<%= $hazelcast::version %>.jar com.hazelcast.core.server.StartServer
 ExecStop=/bin/kill -s TERM $MAINPID
 PrivateTmp=true
 

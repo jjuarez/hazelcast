@@ -10,7 +10,8 @@ class hazelcast(
   Optional[Boolean]                 $manage_user,
   Optional[String]                  $user,
   Optional[String]                  $group,
-  Optional[String]                  $java,
+  Optional[Stdlib::Absolutepath]    $java_home,
+  Optional[Stdlib::Absolutepath]    $java,
   Optional[String]                  $java_options,
   Optional[Stdlib::Ensure::Service] $service_ensure,
 ){
