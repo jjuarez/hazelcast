@@ -4,17 +4,17 @@
 class hazelcast::install inherits hazelcast {
   include '::archive'
 
-  if $hazelcast::manage_user {
-    group { $hazelcast::group:
+  if $::hazelcast::manage_user {
+    group { $::hazelcast::group:
       ensure => present,
     }
-    ->user { $hazelcast::user:
+    ->user { $::hazelcast::user:
       ensure => present,
-      gid    => $hazelcast::group,
+      gid    => $::hazelcast::group,
     }
   }
 
-  file { $hazelcast::install_dir:
+  file { $::hazelcast::install_dir:
     ensure => directory,
     owner  => $::hazelcast::user,
     group  => $::hazelcast::group,
@@ -25,8 +25,8 @@ class hazelcast::install inherits hazelcast {
     source       => $::hazelcast::download_url,
     extract_path => $::hazelcast::root_dir,
     creates      => $::hazelcast::install_dir,
-    cleanup      => true,
     user         => $::halezcast::user,
     group        => $::hazelcast::group,
+    cleanup      => true,
   }
 }

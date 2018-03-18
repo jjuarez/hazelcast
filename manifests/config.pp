@@ -4,11 +4,11 @@
 class hazelcast::config inherits hazelcast {
 
   File {
-    owner => $halezcast::user,
-    group => $halezcast::group,
+    owner => $::halezcast::user,
+    group => $::halezcast::group,
   }
 
-  file { $hazelcast::config_dir:
+  file { $::hazelcast::config_dir:
     ensure => directory,
     mode   => '0640',
   }
@@ -17,13 +17,13 @@ class hazelcast::config inherits hazelcast {
     ensure  => present,
     mode    => '0750',
     content => epp("${module_name}/hazelcast.conf.epp", { }),
-    require => File[$hazelcast::config_dir],
+    require => File[$::hazelcast::config_dir],
   }
 
-  file { $::halezcast::xml_config_file:
+  file { $::hazelcast::xml_config_file:
     ensure  => present,
     mode    => '0640',
     content => epp("${module_name}/hazelcast.xml.epp", { }),
-    require => File[$hazelcast::config_dir],
+    require => File[$::hazelcast::config_dir],
   }
 }
