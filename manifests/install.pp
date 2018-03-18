@@ -25,6 +25,7 @@ class hazelcast::install inherits hazelcast {
     extract      => true,
     source       => $::hazelcast::download_url,
     extract_path => $::hazelcast::install_dir,
+    create       => $::hazelcast::install_dir,
     user         => $::halezcast::user,
     group        => $::hazelcast::group,
     cleanup      => true,
