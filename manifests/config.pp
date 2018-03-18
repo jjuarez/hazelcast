@@ -3,6 +3,11 @@
 #
 class hazelcast::config inherits hazelcast {
 
+  File {
+    owner => $halezcast::user,
+    group => $halezcast::group,
+  }
+
   file { $hazelcast::config_dir:
     ensure => directory,
     mode   => '0640',

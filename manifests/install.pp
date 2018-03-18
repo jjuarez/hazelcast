@@ -14,6 +14,11 @@ class hazelcast::install inherits hazelcast {
     }
   }
 
+  File {
+    owner => $halezcast::user,
+    group => $halezcast::group,
+  }
+
   file { $hazelcast::install_dir:
     ensure => directory,
   }
@@ -24,5 +29,7 @@ class hazelcast::install inherits hazelcast {
     source       => $hazelcast::download_url,
     creates      => [$hazelcast::install_dir, "hazelcast-${hazelcast::version}"].join('/'),
     cleanup      => true,
+    user         => $halezcast::user,
+    group        => $hazelcast::group,
   }
 }

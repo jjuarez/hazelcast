@@ -16,11 +16,6 @@ class hazelcast(
   Optional[Stdlib::Ensure::Service] $service_ensure,
 ){
 
-  File {
-    owner => $hazelcast::user,
-    group => $hazelcast::group,
-  }
-
   contain hazelcast::install
   contain hazelcast::config
   contain hazelcast::service
