@@ -9,8 +9,6 @@ PIDFile=/run/hazelcast/hazelcast.pid
 User=<%= $hazelcast::user %>
 Group=<%= $hazelcast::group %>
 Type=simple
-LimitNOFILE=32767
-LimitNOPROC=8192
 WorkingDirectory=<%= $hazelcast::install_dir %>
 ExecStartPre=/bin/mkdir -p /run/hazelcast
 ExecStartPre=/bin/chown -R <%= $hazelcast::user %>.<%= $hazelcast::group %> /run/hazelcast
