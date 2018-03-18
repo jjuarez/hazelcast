@@ -4,8 +4,8 @@
 class hazelcast::config inherits hazelcast {
 
   File {
-    owner => $::halezcast::user,
-    group => $::halezcast::group,
+    owner => $::hazelcast::user,
+    group => $::hazelcast::group,
     mode  => '0640',
   }
 

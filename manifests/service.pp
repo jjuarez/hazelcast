@@ -13,7 +13,7 @@ class hazelcast::service inherits hazelcast {
   }
   ~> Class['systemd::systemctl::daemon_reload']
 
-  service { $::hazelcast::service_name:
+  service { 'hazelcast':
     ensure => $::hazelcast::service_ensure,
   }
 }
