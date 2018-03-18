@@ -7,3 +7,6 @@ fixtures:
     archive:
       repo: "puppet/archive"
       ref: "2.3.0"
+    systemd:
+      repo: "camptocamp/systemd"
+      ref: "1.1.1"
