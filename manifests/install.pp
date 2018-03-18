@@ -5,13 +5,13 @@ class hazelcast::install inherits hazelcast {
   include '::archive'
 
   if $::hazelcast::manage_user {
-    group { $::hazelcast::group:
+    ensure_resource('group', $::hazelcast::group, {
       ensure => present,
-    }
-    ->user { $::hazelcast::user:
+    })
+    ensure_resource('user', $::hazelcast::user, {
       ensure => present,
       gid    => $::hazelcast::group,
-    }
+    })
   }
 
   file { $::hazelcast::install_dir:
@@ -21,11 +21,12 @@ class hazelcast::install inherits hazelcast {
   }
   -> archive { '/tmp/hazelcast.tar.gz':
     ensure       => present,
-    extract      => true,
     source       => $::hazelcast::download_url,
-    extract_path => $::hazelcast::install_dir,
+    extract_path => $::hazelcast::root_dir,
+    creates      => $::hazelcast::install_dir,
     user         => $::halezcast::user,
     group        => $::hazelcast::group,
+    extract      => true,
     cleanup      => true,
   }
 }
