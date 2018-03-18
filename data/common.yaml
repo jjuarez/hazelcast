@@ -1,7 +1,7 @@
 ---
-hazelcast::install_dir: '/opt/hazelcast'
+hazelcast::version: '3.9.3'
+hazelcast::install_dir: '/opt/hazelcast-3.9.3'
 hazelcast::config_dir: '/etc/hazelcast'
-hazelcast::version: '3.9.2'
 hazelcast::service_name: 'hazelcast'
 hazelcast::service_ensure: 'running'
 hazelcast::manage_user: true
