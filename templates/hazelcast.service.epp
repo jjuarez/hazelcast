@@ -9,7 +9,6 @@ PIDFile=/run/hazelcast.pid
 User=<%= $::hazelcast::user %>
 Group=<%= $::hazelcast::group %>
 WorkingDirectory=<%= $::hazelcast::install_dir %>
-RuntimeDirectory=<%= $::hazelcast::install_dir %>
 EnvironmentFile<%= $::hazelcast::config_dir %>/hazelcast.conf
 ExecStart=${JAVA_HOME}/bin/java <%= $::hazelcast::java_options %> com.hazelcast.core.server.StartServer
 ExecStop=/bin/kill -s TERM $MAINPID
