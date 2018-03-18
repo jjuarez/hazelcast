@@ -2,23 +2,34 @@
   "name": "fon-hazelcast",
   "version": "0.1.0",
   "author": "Javier Juarez",
-  "summary": "",
+  "summary": "This module should helps you to setup a hazelcast cluster",
   "license": "MIT",
   "source": "https://gitlab.com/homeWiFi-devops/hazelcast",
   "dependencies": [
-
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">=4.0.0 < 5.0.0"
+    },
+    {
+      "name": "puppet/archive",
+      "version_requirement": ">=2.3.0 < 3.0.0"
+    },
+    {
+      "name": "camptocamp/systemd",
+      "version_requirement": ">=1.1.0 < 2.0.0"
+    }
   ],
   "operatingsystem_support": [
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "8"
+        "9"
       ]
     },
     {
-      "operatingsystem": "Ubuntu",
+      "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "16.04"
+        "8"
       ]
     }
   ],
