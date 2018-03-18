@@ -2,7 +2,6 @@
 hazelcast::version: '3.9.3'
 hazelcast::root_dir: '/opt'
 hazelcast::config_dir: '/etc/hazelcast'
-hazelcast::service_name: 'hazelcast'
 hazelcast::service_ensure: 'running'
 hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
