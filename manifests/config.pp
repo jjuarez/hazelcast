@@ -6,24 +6,18 @@ class hazelcast::config inherits hazelcast {
   File {
     owner => $::halezcast::user,
     group => $::halezcast::group,
+    mode  => '0640',
   }
 
   file { $::hazelcast::config_dir:
     ensure => directory,
-    mode   => '0640',
   }
-
-  file { $::hazelcast::config_file:
+  -> file { $::hazelcast::config_file:
     ensure  => present,
-    mode    => '0750',
-    content => epp("${module_name}/hazelcast.conf.epp", { }),
-    require => File[$::hazelcast::config_dir],
+    content => epp("${module_name}/hazelcast.conf.epp"),
   }
-
-  file { $::hazelcast::xml_config_file:
+  -> file { $::hazelcast::xml_config_file:
     ensure  => present,
-    mode    => '0640',
-    content => epp("${module_name}/hazelcast.xml.epp", { }),
-    require => File[$::hazelcast::config_dir],
+    content => epp("${module_name}/hazelcast.xml.epp"),
   }
 }
