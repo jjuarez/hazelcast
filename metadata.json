@@ -1,5 +1,5 @@
 {
-  "name": "fon-hazelcast",
+  "name": "jjuarez-hazelcast",
   "version": "0.1.0",
   "author": "Javier Juarez",
   "summary": "This module should helps you to setup a hazelcast cluster",
