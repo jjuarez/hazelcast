@@ -14,22 +14,19 @@ class hazelcast::install inherits hazelcast {
     }
   }
 
-  File {
-    owner => $halezcast::user,
-    group => $halezcast::group,
-  }
-
   file { $hazelcast::install_dir:
     ensure => directory,
+    owner  => $::hazelcast::user,
+    group  => $::hazelcast::group,
   }
   -> archive { '/tmp/hazelcast.tar.gz':
     ensure       => present,
     extract      => true,
-    extract_path => $hazelcast::install_dir,
-    source       => $hazelcast::download_url,
-    creates      => [$hazelcast::install_dir, "hazelcast-${hazelcast::version}"].join('/'),
+    source       => $::hazelcast::download_url,
+    extract_path => $::hazelcast::root_dir,
+    creates      => $::hazelcast::install_dir,
     cleanup      => true,
-    user         => $halezcast::user,
-    group        => $hazelcast::group,
+    user         => $::halezcast::user,
+    group        => $::hazelcast::group,
   }
 }

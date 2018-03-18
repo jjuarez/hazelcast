@@ -13,14 +13,14 @@ class hazelcast::config inherits hazelcast {
     mode   => '0640',
   }
 
-  file { "${hazelcast::config_dir}/hazelcast.conf":
+  file { $::hazelcast::config_file:
     ensure  => present,
     mode    => '0750',
     content => epp("${module_name}/hazelcast.conf.epp", { }),
     require => File[$hazelcast::config_dir],
   }
 
-  file { "${halezcast::config_dir}/hazelcast.xml":
+  file { $::halezcast::xml_config_file:
     ensure  => present,
     mode    => '0640',
     content => epp("${module_name}/hazelcast.xml.epp", { }),

@@ -14,10 +14,10 @@ class hazelcast::service inherits hazelcast {
   ~> Class['systemd::systemctl::daemon_reload']
 
   service { $::hazelcast::service_name:
-    ensure     => $::hazelcast::service_ensure,
-    subscribe  => [
-      File[[$hazelcast::config_dir, 'hazelcast.xml'].join('/)')],
-      File[[$hazelcast::config_dir, 'hazelcast.conf'].join('/)')],
+    ensure    => $::hazelcast::service_ensure,
+    subscribe => [
+      File[$::hazelcast::config_file],
+      File[$::hazelcast::xml_config_file],
       File['/lib/systemd/system/hazelcast.service']
     ]
   }
