@@ -22,7 +22,7 @@ class hazelcast::install inherits hazelcast {
     extract      => true,
     extract_path => $hazelcast::install_dir,
     source       => $hazelcast::download_url,
-    creates      => [$hazelcast::install_dir], "hazelcast-${hazelcast::version}",
+    creates      => [$hazelcast::install_dir, "hazelcast-${hazelcast::version}"].join('/'),
     cleanup      => true,
   }
 }
