@@ -4,26 +4,24 @@
 class hazelcast::install {
   include '::archive'
 
-  if $::hazelcast::manage_user {
-
-    group { $::hazelcast::group:
+  if $hazelcast::manage_user {
+    group { $hazelcast::group:
       ensure => present,
     }
-    ->user { $::hazelcast::user:
+    ->user { $hazelcast::user:
       ensure => present,
-      gid    => $::hazelcast::group,
+      gid    => $hazelcast::group,
     }
   }
 
-  file { $::hazelcast::install_dir:
+  file { $hazelcast::install_dir:
     ensure => directory,
   }
-  -> archive { '/tmp/hazelcast.zip':
+  -> archive { '/tmp/hazelcast.tar.gz':
     ensure       => present,
     extract      => true,
-    extract_path => '/tmp',
-    source       => $::hazelcast::download_url,
-    creates      => $::hazelcast::install_dir,
+    extract_path => $hazelcast::install_dir,
+    source       => $hazelcast::download_url,
     cleanup      => false,
   }
 }
