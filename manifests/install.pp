@@ -22,6 +22,7 @@ class hazelcast::install {
     extract      => true,
     extract_path => $hazelcast::install_dir,
     source       => $hazelcast::download_url,
+    creates      => [$hazelcast::install_dir], "hazelcast-${hazelcast::version}",
     cleanup      => false,
   }
 }
