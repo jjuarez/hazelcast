@@ -15,9 +15,10 @@ class hazelcast::install inherits hazelcast {
   }
 
   file { $::hazelcast::install_dir:
-    ensure => directory,
-    owner  => $::hazelcast::user,
-    group  => $::hazelcast::group,
+    ensure  => directory,
+    recurse => true,
+    owner   => $::hazelcast::user,
+    group   => $::hazelcast::group,
   }
   -> archive { '/tmp/hazelcast.tar.gz':
     ensure       => present,
