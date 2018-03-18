@@ -6,7 +6,6 @@ class hazelcast(
   Optional[Stdlib::Absolutepath]    $config_dir,
   Optional[String]                  $version,
   Optional[Stdlib::Httpurl]         $download_url,
-  Optional[String]                  $service_name,
   Optional[Boolean]                 $manage_user,
   Optional[String]                  $user,
   Optional[String]                  $group,
