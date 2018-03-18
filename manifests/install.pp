@@ -23,10 +23,10 @@ class hazelcast::install inherits hazelcast {
     ensure       => present,
     source       => $::hazelcast::download_url,
     extract_path => $::hazelcast::root_dir,
-    creates      => $::hazelcast::install_dir,
+    creates      => [$::hazelcast::install_dir, 'installed'].join('/'),
     user         => $::halezcast::user,
     group        => $::hazelcast::group,
     extract      => true,
-    cleanup      => true,
+    cleanup      => false,
   }
 }
