@@ -1,0 +1,3 @@
+JAVA_HOME=<%= $::hazelcast::java %>
+HAZELCAST_HOME=<%= $::hazelcast::install_dir %>
+CLASS_PATH=$HAZELCAST_HOME/lib/hazelcast-all-$::hazelcast::version.jar
