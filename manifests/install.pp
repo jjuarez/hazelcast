@@ -1,7 +1,7 @@
 ##
 # = class: hazelcast::install - The class that commands the installation of the zip file
 # 
-class hazelcast::install {
+class hazelcast::install inherits hazelcast {
   include '::archive'
 
   if $hazelcast::manage_user {

@@ -1,7 +1,7 @@
 ##
 # = class: hazelcast::service - The class that handles the hazelcast service
 #
-class hazelcast::service {
+class hazelcast::service inherits hazelcast {
   include ::systemd::systemctl::daemon_reload
 
   $systemd_unit_file = '/lib/systemd/system/hazelcast.service'
