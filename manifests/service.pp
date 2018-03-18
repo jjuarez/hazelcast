@@ -11,7 +11,7 @@ class hazelcast::service inherits hazelcast {
     mode    => '0644',
     content => epp("${module_name}/hazelcast.service.epp", { }),
   }
-  ~> Class['systemd::systemctl::daemon-reload']
+  ~> Class['systemd::systemctl::daemon_reload']
 
   service { $::hazelcast::service_name:
     ensure     => $::hazelcast::service_ensure,
