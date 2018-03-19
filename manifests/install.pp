@@ -1,5 +1,5 @@
 ##
-# = class: hazelcast::install - The class that commands the installation of the zip file
+# The hazelcast::install class It commands the installation of the zip file
 # 
 class hazelcast::install inherits hazelcast {
   include ::archive

@@ -6,6 +6,29 @@ All notable changes to this project will be documented in this file.
 
 **Features**
 
+Implements only the basics to support the process up and running
+
 **Bugfixes**
 
 **Known Issues**
+
+## Release 0.1.1
+
+**Features**
+
+**Bugfixes**
+
+* A shilly issue related with the module metadata.json file
+
+
+## Release 0.2.0
+
+**Features**
+You can call this the first release of the module, it includes the next features:
+
+* Supports (only) the TCP discovery mechanism, but this is the begining
+* Solves the issue with the logging configuration of the process
+
+
+**Bugfixes**
+

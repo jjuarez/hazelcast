@@ -1,5 +1,5 @@
 ##
-# = class: hazelcast::config - Handles the configuration for the hazelcast process
+# The hazelcast::config class It handles the configuration for the hazelcast process
 #
 class hazelcast::config inherits hazelcast {
 

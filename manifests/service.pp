@@ -1,5 +1,5 @@
 ##
-# = class: hazelcast::service - The class that handles the hazelcast service
+# The hazelcast::service class It handles the hazelcast service
 #
 class hazelcast::service inherits hazelcast {
   include ::systemd::systemctl::daemon_reload

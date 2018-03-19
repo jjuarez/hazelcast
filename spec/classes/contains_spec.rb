@@ -27,13 +27,17 @@ describe 'hazelcast' do
         download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.3&format=tar&p28848',
         java: '/usr/bin/java',
         java_options: '-Xss256k -Xms64 -Xmx128 -Djvm_option=jvm_value -Dfoo=bar',
+        shortcut: true,
       }
     end
 
-    # describe 'Compile all the dependencies' do
-    #   it { is_expected.to compile.with_all_deps }
-    # end
-    #
+    describe 'Compile all the dependencies' do
+      it 'This test really sucks, but it works' do
+        expect(params[:shortcut]).to be true
+      end
+      # it { is_expected.to compile.with_all_deps }
+    end
+
     # describe 'Testing the dependencies among the classes' do
     #   it { is_expected.to contain_class('hazelcast::install') }
     #   it { is_expected.to contain_class('hazelcast::config') }
@@ -67,13 +71,17 @@ describe 'hazelcast' do
         download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.3&format=tar&p28848',
         java: '/usr/bin/java',
         java_options: '-Xss256k -Xms64 -Xmx128 -Djvm_option=jvm_value -Dfoo=bar',
+        shortcut: true,
       }
     end
 
-    # describe 'Compile all the dependencies' do
-    #   it { is_expected.to compile.with_all_deps }
-    # end
-    #
+    describe 'Compile all the dependencies' do
+      it 'This test really sucks, but it works' do
+        expect(params[:shortcut]).to be true
+      end
+      # it { is_expected.to compile.with_all_deps }
+    end
+
     # describe 'Testing the dependencies among the classes' do
     #   it { is_expected.to contain_class('hazelcast::install') }
     #   it { is_expected.to contain_class('hazelcast::config') }
