@@ -13,6 +13,10 @@ class hazelcast(
   Optional[Stdlib::Absolutepath]    $java,
   Optional[String]                  $java_options,
   Optional[Stdlib::Ensure::Service] $service_ensure,
+  Optional[Enum['tcp']]             $cluster_discovery,
+  Optional[String]                  $cluster_user,
+  Optional[String]                  $cluster_password,
+  Optional[Array]                   $cluster_members,
 ){
 
   $install_dir     = [$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"].join('/')
