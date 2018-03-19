@@ -30,10 +30,10 @@ describe 'hazelcast' do
       }
     end
 
-    # describe 'Compile all the dependencies' do
-    #   it { is_expected.to compile.with_all_deps }
-    # end
-    #
+    describe 'Compile all the dependencies' do
+    # it { is_expected.to compile.with_all_deps }
+    end
+
     # describe 'Testing the dependencies among the classes' do
     #   it { is_expected.to contain_class('hazelcast::install') }
     #   it { is_expected.to contain_class('hazelcast::config') }
@@ -70,10 +70,10 @@ describe 'hazelcast' do
       }
     end
 
-    # describe 'Compile all the dependencies' do
-    #   it { is_expected.to compile.with_all_deps }
-    # end
-    #
+    describe 'Compile all the dependencies' do
+    # it { is_expected.to compile.with_all_deps }
+    end
+
     # describe 'Testing the dependencies among the classes' do
     #   it { is_expected.to contain_class('hazelcast::install') }
     #   it { is_expected.to contain_class('hazelcast::config') }
