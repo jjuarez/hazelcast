@@ -1,21 +1,10 @@
 
 # hazelcast
 
-Welcome to your new module. A short overview of the generated parts can be found in the PDK documentation at https://puppet.com/pdk/latest/pdk_generating_modules.html .
-
-The README template below provides a starting point with details about what information to include in your README.
-
-
-
-
-
-
-
 #### Table of Contents
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with hazelcast](#setup)
-    * [What hazelcast affects](#what-hazelcast-affects)
     * [Setup requirements](#setup-requirements)
     * [Beginning with hazelcast](#beginning-with-hazelcast)
 3. [Usage - Configuration options and additional functionality](#usage)
@@ -25,27 +14,73 @@ The README template below provides a starting point with details about what info
 
 ## Description
 
-Start with a one- or two-sentence summary of what the module does and/or what problem it solves. This is your 30-second elevator pitch for your module. Consider including OS/Puppet version it works with.
+The aim of this module is to help you with the instalation and setup of the hazelcast cluster
 
 You can give more descriptive information in a second paragraph. This paragraph should answer the questions: "What does this module *do*?" and "Why would I use it?" If your module has a range of functionality (installation, configuration, management, etc.), this is the time to mention it.
 
 ## Setup
 
-### What hazelcast affects **OPTIONAL**
+A minimal setup using the default parameter values would be something like this:
 
-If it's obvious what your module touches, you can skip this section. For example, folks can probably figure out that your mysql_instance module affects their MySQL instances.
+```puppet
+class { '::hazelcast': }
+```
 
-If there's more that they should know about, though, this is the place to mention:
+or better using the import clause in this form:
 
-* Files, packages, services, or operations that the module will alter, impact, or execute.
-* Dependencies that your module automatically installs.
-* Warnings or other important notices.
+```puppet
+import '::hazelcast'
+```
 
-### Setup Requirements **OPTIONAL**
+### Setup Requirements
 
-If your module requires anything extra before setting up (pluginsync enabled, another module, etc.), mention it here.
+Here you can see a more complex setup
 
-If your most recent release breaks compatibility or requires particular steps for upgrading, you might want to include an additional "Upgrading" section here.
+```puppet
+class { '::hazelcast':
+  version           => '3.9.3',
+  root_dir          => '/opt',
+  config_dir        => '/etc/hazelcast',
+  service_ensure    => 'running',
+  manage_user       => true,
+  user              => 'hazelcast',
+  group             => 'hazelcast',
+  download_url      => 'http://download.hazelcast.com/download.jsp?verson=3.9.3&type=tar&p=28888',
+  java_home         => '/usr/lib/jvm/jre1.8.0',
+  java_options      => '-Dfoo=bar',
+  cluster_discovery => 'tcp',
+  cluster_user      => 'hzuser',
+  cluster_password  => 'supersecret',
+  cluster_members   => [
+    '192.168.0.23',
+    '192.168.0.24',
+    '192.168.0.25'
+  ]   
+}
+```
+
+Of course we recomend you to configure the module using hiera, this is more reliable and flexible depending of your hierarchy, you can view the previous example here:
+
+```yaml
+---
+  hazelcast::version: '3.9.3'
+  hazelcast::root_dir: '/opt'
+  hazelcast::config_dir: '/etc/hazelcast'
+  hazelcast::service_ensure: 'running'
+  hazelcast::manage_user: true
+  hazelcast::user: 'hazelcast'
+  hazelcast::group: 'hazelcast'
+  hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?verson=3.9.3&type=tar&p=28888'
+  hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
+  hazelcast::java_options: '-Dfoo=bar'
+  hazelcast::cluster_discovery: 'tcp'
+  hazelcast::cluster_user: 'hzuser'
+  hazelcast::cluster_password: 'supersecret'
+  hazelcast::cluster_members:
+    - '192.168.0.23'
+    - '192.168.0.24'
+    - '192.168.0.25'
+```
 
 ### Beginning with hazelcast
 
@@ -53,29 +88,17 @@ The very basic steps needed for a user to get the module up and running. This ca
 
 ## Usage
 
-This section is where you describe how to customize, configure, and do the fancy stuff with your module here. It's especially helpful if you include usage examples and code samples for doing things with your module.
+As you can seen in the setup example configuration you can setup a lot of aspects of the module, it's pretty easy
 
 ## Reference
 
-Users need a complete list of your module's classes, types, defined types providers, facts, and functions, along with the parameters for each. You can provide this list either via Puppet Strings code comments or as a complete list in the README Reference section.
-
-* If you are using Puppet Strings code comments, this Reference section should include Strings information so that your users know how to access your documentation.
-
-* If you are not using Puppet Strings, include a list of all of your classes, defined types, and so on, along with their parameters. Each element in this listing should include:
-
-  * The data type, if applicable.
-  * A description of what the element does.
-  * Valid values, if the data type doesn't make it obvious.
-  * Default value, if any.
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc. If there are Known Issues, you might want to include them under their own heading here.
+The module supports only Debian systemd distributions: Stretch and Jessie, but we've plans to support another distrobutions that might compatible like CentOS 7 and Ubuntu in a near future (I hope). The configuration of the discovery
+mechanims supports only TCP in the current version (0.2.0 at the time to write this)
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them know what the ground rules for contributing are.
+Please feel free to send your ideas in the form of pull requests, and fill an issue if you discover one
 
-## Release Notes/Contributors/Etc. **Optional**
-
-If you aren't using changelog, put your release notes here (though you should consider using changelog). You can also add any additional sections you feel are necessary or important to include here. Please use the `## ` header.
