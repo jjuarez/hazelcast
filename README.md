@@ -46,6 +46,10 @@ class { '::hazelcast':
   download_url      => 'http://download.hazelcast.com/download.jsp?verson=3.9.3&type=tar&p=28888',
   java_home         => '/usr/lib/jvm/jre1.8.0',
   java_options      => '-Dfoo=bar',
+  classpath         => [
+    'foo.jar',
+    'bar.jar'
+  ],
   cluster_discovery => 'tcp',
   cluster_user      => 'hzuser',
   cluster_password  => 'supersecret',
@@ -71,6 +75,9 @@ Of course we recomend you to configure the module using hiera, this is more reli
   hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?verson=3.9.3&type=tar&p=28888'
   hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
   hazelcast::java_options: '-Dfoo=bar'
+  hazelcast::classpath:
+    - foo.jar
+    - bar.jar
   hazelcast::cluster_discovery: 'tcp'
   hazelcast::cluster_user: 'hzuser'
   hazelcast::cluster_password: 'supersecret'
