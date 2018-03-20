@@ -10,7 +10,7 @@ hazelcast::download_url: 'https://download.hazelcast.com/download.jsp?version=ha
 hazelcast::java: '/usr/bin/java'
 hazelcast::java_options: '-server -Djava.net.preferIPv4Stack=true -Dhazelcast.config=/etc/hazelcast/hazelcast.xml'
 hazelcast::classpath: [ ]
+hazelcast::group_name: 'hzuser'
+hazelcast::group_password: 'hzpass'
 hazelcast::cluster_discovery: 'tcp'
-hazelcast::cluster_user: 'hzuser'
-hazelcast::cluster_password: 'hzpass'
 hazelcast::cluster_members: [ ]
