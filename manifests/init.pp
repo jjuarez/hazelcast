@@ -13,6 +13,7 @@
 # @param manage_users      This switch allow us to create the group and user to manage the hazelcast process
 # @param user              The user of the hazelcast process
 # @param group             The group of the hazelcast process
+# @param java              This parameter should point to the java executable
 # @param java_options      This is a "free" string to add your favourite JVM's options
 # @param classpath         The classpath to launch the JVM
 # @param service_ensure    The status desired for the service
@@ -29,6 +30,7 @@ class hazelcast(
   Optional[Boolean]                 $manage_user,
   Optional[String]                  $user,
   Optional[String]                  $group,
+  Optional[String]                  $java,
   Optional[String]                  $java_options,
   Optional[Array[String]]           $classpath,
   Optional[Stdlib::Ensure::Service] $service_ensure,
