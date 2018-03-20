@@ -4,6 +4,11 @@
 class hazelcast::install inherits hazelcast {
   include ::archive
 
+  File {
+    owner => $::hazelcast::user,
+    group => $::hazelcast::group,
+  }
+
   if $::hazelcast::manage_user {
     ensure_resource('group', $::hazelcast::group, {
       ensure => present,
@@ -30,7 +35,11 @@ class hazelcast::install inherits hazelcast {
     extract      => true,
     cleanup      => false,
   }
-  -> exec { "${::hazelcast::install_dir} change of owners":
-    command => "/bin/chown -R ${::hazelcast::user}.${::hazelcast::group} ${::hazelcast::install_dir}",
+# -> exec { "${::hazelcast::install_dir} change of owners":
+#   command => "/bin/chown -R ${::hazelcast::user}.${::hazelcast::group} ${::hazelcast::install_dir}",
+# }
+  -> file { $::hazelcast::cli:
+    ensure  => present,
+    content => epp("${module_name}/hazelcast-cli.sh.epp"),
   }
 }
