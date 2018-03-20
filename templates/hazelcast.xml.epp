@@ -40,7 +40,7 @@
         </outbound-ports>
         <join>
           <multicast enabled="false"></multicast>
-          <% if $hazelcast::cluster_discovery == 'tcp' && $hazelcast::cluster_members.size > 0 { -%>
+          <% if $hazelcast::cluster_discovery == 'tcp' and $hazelcast::cluster_members.size > 0 { -%>
           <tcp-ip enabled="true">
             <member-list>
               <% $hazelcast::cluster_members.each |$member| { -%>
