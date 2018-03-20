@@ -30,7 +30,7 @@ class hazelcast(
   Optional[Boolean]                 $manage_user,
   Optional[String]                  $user,
   Optional[String]                  $group,
-  Optional[Stdlib:Absolutepath]     $java,
+  Optional[Stdlib::Absolutepath]    $java,
   Optional[String]                  $java_options,
   Optional[Array[String]]           $classpath,
   Optional[Stdlib::Ensure::Service] $service_ensure,
