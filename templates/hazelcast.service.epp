@@ -13,7 +13,7 @@ WorkingDirectory=<%= $::hazelcast::install_dir %>
 ExecStartPre=/bin/mkdir -p /run/hazelcast
 ExecStartPre=/bin/chown -R <%= $::hazelcast::user %>.<%= $::hazelcast::group %> /run/hazelcast
 EnvironmentFile=<%= $::hazelcast::config_dir %>/hazelcast.conf
-ExecStart=java <%= $::hazelcast::java_options %> com.hazelcast.core.server.StartServer
+ExecStart=<%= $::hazelcast::java %> <%= $::hazelcast::java_options %> com.hazelcast.core.server.StartServer
 ExecStop=/bin/kill --signal TERM $MAINPID
 PrivateTmp=true
 
