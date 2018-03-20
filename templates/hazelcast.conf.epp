@@ -2,8 +2,12 @@
   Stdlib::Absolutepath $hazelcast_library,
 | -%>
 JAVA_HOME=<%= $::hazelcast::java_home %>
-<% if $::hazelcast::class_path.size > 0 { -%>
-CLASSPATH=<%= $hazelcast_library -%>:<% $::hazelcast::class_path.each |$jar| { -%> <%= $jar -%>:<% } -%>
+<% $class_path_size = $::hazelcast::class_path.size -%>
+<% if $class_path_size > 0 { -%>
+CLASSPATH=<%= $hazelcast_library -%>:<% $::hazelcast::class_path.each |Integer $index, String $jar| { -%>
+<%= $jar -%>
+<%= if $index < $class_path_size { -%>:<% } -%>
+<% } -%>
 <% } else { -%>
 CLASSPATH=<%= $hazelcast_library -%>
 <% } -%>
