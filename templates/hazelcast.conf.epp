@@ -1,1 +1,9 @@
-JAVA_HOME=<%= $hazelcast::java_home %>
+<%- |
+  Stdlib::Absolutepath $hazelcast_library,
+| -%>
+JAVA_HOME=<%= $::hazelcast::java_home %>
+<% if $::hazelcast::class_path.size > 0 { -%>
+CLASSPATH=<%= $hazelcast_library -%>:<% $::hazelcast::class_path.each |$jar| { -%> <%= $jar -%>:<% } -%>
+<% } else { -%>
+CLASSPATH=<%= $hazelcast_library -%>
+<% } -%>
