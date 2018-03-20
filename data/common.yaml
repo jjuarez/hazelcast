@@ -10,8 +10,8 @@ hazelcast::download_url: 'https://download.hazelcast.com/download.jsp?version=ha
 hazelcast::java_home: '/usr/lib/jvm/jre1.8.0_131'
 hazelcast::java: '/usr/lib/jvm/jre1.8.0_131/bin/java'
 hazelcast::java_options: '-server -Xss256k -Xms64m -Xmx512m -Djava.net.preferIPv4Stack=true -Dhazelcast.configuration=/etc/hazelcast/hazelcast.xml'
+hazelcast::classpath: [ ]
 hazelcast::cluster_discovery: 'tcp'
 hazelcast::cluster_user: 'hzuser'
 hazelcast::cluster_password: 'hzpass'
-hazelcast::cluster_members:
-  - 127.0.0.1
+hazelcast::cluster_members: [ ]

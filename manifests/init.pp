@@ -16,6 +16,7 @@
 # @param java_home         The JAVA_HOME directory where to find java executable
 # @param java              The java executable file
 # @param java_options      This is a "free" string to add your favourite JVM's options
+# @param classpath         The classpath to launch the JVM
 # @param service_ensure    The status desired for the service
 # @param cluster_discovery The discovery mechanims to use in the cluster
 # @param cluster_user      The user of the cluster
@@ -33,6 +34,7 @@ class hazelcast(
   Optional[Stdlib::Absolutepath]    $java_home,
   Optional[Stdlib::Absolutepath]    $java,
   Optional[String]                  $java_options,
+  Optional[Array[String]]           $classpath,
   Optional[Stdlib::Ensure::Service] $service_ensure,
   Optional[Enum['tcp']]             $cluster_discovery,
   Optional[String]                  $cluster_user,
@@ -40,9 +42,11 @@ class hazelcast(
   Optional[Array]                   $cluster_members,
 ){
 
-  $install_dir     = [$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"].join('/')
-  $config_file     = [$::hazelcast::config_dir, 'hazelcast.conf'].join('/')
-  $xml_config_file = [$::hazelcast::config_dir, 'hazelcast.xml'].join('/')
+  $install_dir        = [$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"].join('/')
+  $config_file        = [$::hazelcast::config_dir, 'hazelcast.conf'].join('/')
+  $xml_config_file    = [$::hazelcast::config_dir, 'hazelcast.xml'].join('/')
+  $all_jar_file       = [$::hazelcast::install_dir, 'lib', "hazelcast-all-${::hazelcast::version}.jar"].join('/')
+  $complete_classpath = [$all_jar_file, $::hazelcast::classpath.flatten].join(':')
 
   contain hazelcast::install
   contain hazelcast::config

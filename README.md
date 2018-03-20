@@ -16,8 +16,6 @@
 
 The aim of this module is to help you with the instalation and setup of the hazelcast cluster
 
-You can give more descriptive information in a second paragraph. This paragraph should answer the questions: "What does this module *do*?" and "Why would I use it?" If your module has a range of functionality (installation, configuration, management, etc.), this is the time to mention it.
-
 ## Setup
 
 A minimal setup using the default parameter values would be something like this:
@@ -88,7 +86,6 @@ The very basic steps needed for a user to get the module up and running. This ca
 
 ## Usage
 
-As you can seen in the setup example configuration you can setup a lot of aspects of the module, it's pretty easy
 
 ## Reference
 
@@ -100,5 +97,5 @@ mechanims supports only TCP in the current version (0.2.0 at the time to write t
 
 ## Development
 
-Please feel free to send your ideas in the form of pull requests, and fill an issue if you discover one
+Please feel free to send me your ideas in the form of pull requests, and fill an issue if you discover one
 
