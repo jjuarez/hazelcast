@@ -42,10 +42,15 @@ class hazelcast(
   Optional[Array]                   $cluster_members,
 ){
 
-  $install_dir     = [$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"].join('/')
-  $config_file     = [$::hazelcast::config_dir, 'hazelcast.conf'].join('/')
-  $xml_config_file = [$::hazelcast::config_dir, 'hazelcast.xml'].join('/')
-  $all_jar_file    = [$::hazelcast::install_dir, 'lib', "hazelcast-all-${::hazelcast::version}.jar"].join('/')
+  $install_dir        = [$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"].join('/')
+  $config_file        = [$::hazelcast::config_dir, 'hazelcast.conf'].join('/')
+  $xml_config_file    = [$::hazelcast::config_dir, 'hazelcast.xml'].join('/')
+  $all_jar_file       = [$::hazelcast::install_dir, 'lib', "hazelcast-all-${::hazelcast::version}.jar"].join('/')
+  $complete_classpath = $::all_jar_file
+
+  if $::hazelcast::class_path.size > 0 {
+    $complete_class_path = "${complete_class_path}:${::hazelcast::class_path.join(':')}"
+  }
 
   contain hazelcast::install
   contain hazelcast::config
