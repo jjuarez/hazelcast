@@ -1,2 +1,2 @@
 JAVA_HOME=<%= $::hazelcast::java_home %>
-CLASSPATH=<%= $::hazelcast::complete_class_path %>
+CLASSPATH=<%= $::hazelcast::complete_classpath %>
