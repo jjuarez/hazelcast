@@ -46,7 +46,6 @@ This version does not add new features per se, but adds some new interesting int
 ## Release 0.2.2 [Deleted]
 
 **Features**
-I'm sorry not new feature for this release, only the aim to be decoupled from the Java setup
 
 **Bugfixes**
 
@@ -59,4 +58,14 @@ There're not features in this release, I'm just to adjust the java environment t
 **Bugfixes**
 
 * The systemd unit needs an absolute name for the java executable
+
+
+## Release 0.2.4
+
+**Features**
+
+* Include the support for a small CLI tool that may help you to conect with your cluster and do some tests, the client configuration needed to connect with the cluster is automatically provided too by the module
+* Better naming for the hazelcast cluster groups variable names
+* Avoid the use of the (damned) exec resource
+
 
