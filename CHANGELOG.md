@@ -43,10 +43,20 @@ This version does not add new features per se, but adds some new interesting int
 * Solves this issue https://gitlab.com/homeWiFi-devops/hazelcast/issues/1
 
 
-## Release 0.2.2
+## Release 0.2.2 [Deleted]
 
-**Fetures**
+**Features**
 I'm sorry not new feature for this release, only the aim to be decoupled from the Java setup
 
 **Bugfixes**
+
+
+## Release 0.2.3
+
+**Features**
+There're not features in this release, I'm just to adjust the java environment to the minimun required
+
+**Bugfixes**
+
+* The systemd unit needs an absolute name for the java executable
 
