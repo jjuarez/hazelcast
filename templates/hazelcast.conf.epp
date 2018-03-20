@@ -1,2 +1,5 @@
+<%- |
+  String $complete_classpath
+| -%>
 JAVA_HOME=<%= $::hazelcast::java_home %>
-CLASSPATH=<%= $::hazelcast::complete_classpath %>
+CLASSPATH=<%= $complete_classpath %>
