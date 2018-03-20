@@ -35,11 +35,9 @@ class hazelcast::install inherits hazelcast {
     extract      => true,
     cleanup      => false,
   }
-# -> exec { "${::hazelcast::install_dir} change of owners":
-#   command => "/bin/chown -R ${::hazelcast::user}.${::hazelcast::group} ${::hazelcast::install_dir}",
-# }
   -> file { $::hazelcast::cli:
     ensure  => present,
+    mode    => '0750',
     content => epp("${module_name}/hazelcast-cli.sh.epp"),
   }
 }
