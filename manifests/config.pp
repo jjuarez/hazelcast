@@ -15,7 +15,7 @@ class hazelcast::config inherits hazelcast {
   -> file { $::hazelcast::config_file:
     ensure  => present,
     content => epp("${module_name}/hazelcast.conf.epp", {
-      'hazelcast_library' => $::hazelcast::all_jar_file,
+      'class_path' => [$::hazelcast::all_jar_file, $::hazelcast::class_path.flatten].join(':'),
     }),
   }
   -> file { $::hazelcast::xml_config_file:

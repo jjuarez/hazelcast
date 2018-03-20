@@ -1,8 +1,5 @@
 <%- |
-  Stdlib::Absolutepath $hazelcast_library,
+  String $class_path
 | -%>
 JAVA_HOME=<%= $::hazelcast::java_home %>
-CLASSPATH=<%= $hazelcast_library -%>
-<% $::hazelcast::class_path.each |Integer $index, String $jar| { -%>
-:<%= $jar -%>
-<% } -%>
+CLASSPATH=<%= $class_path %>
