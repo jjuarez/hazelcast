@@ -32,3 +32,12 @@ You can call this the first release of the module, it includes the next features
 
 **Bugfixes**
 
+## Release 0.2.1
+
+**Features**
+This version does not add new features per se, but adds some new interesting interfaces that brings to the module the path to grow 
+
+**Bugfixes**
+
+* Solves this issue https://gitlab.com/homeWiFi-devops/hazelcast/issues/1
+
