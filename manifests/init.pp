@@ -46,7 +46,7 @@ class hazelcast(
   $config_file        = [$::hazelcast::config_dir, 'hazelcast.conf'].join('/')
   $xml_config_file    = [$::hazelcast::config_dir, 'hazelcast.xml'].join('/')
   $all_jar_file       = [$::hazelcast::install_dir, 'lib', "hazelcast-all-${::hazelcast::version}.jar"].join('/')
-  $complete_classpath = [$::all_jar_file, $::hazelcast::classpath.flatten].join(':')
+  $complete_classpath = [$all_jar_file, $::hazelcast::classpath.flatten].join(':')
 
   contain hazelcast::install
   contain hazelcast::config
