@@ -8,7 +8,7 @@ hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
 hazelcast::download_url: 'https://download.hazelcast.com/download.jsp?version=hazelcast-3.9.3&type=tar&p=288631785'
 hazelcast::java: '/usr/bin/java'
-hazelcast::java_options: '-server -Djava.net.preferIPv4Stack=true -Dhazelcast.configuration=/etc/hazelcast/hazelcast.xml'
+hazelcast::java_options: '-server -Djava.net.preferIPv4Stack=true -Dhazelcast.config=/etc/hazelcast/hazelcast.xml'
 hazelcast::classpath: [ ]
 hazelcast::cluster_discovery: 'tcp'
 hazelcast::cluster_user: 'hzuser'
