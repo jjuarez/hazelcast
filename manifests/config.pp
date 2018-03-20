@@ -18,8 +18,12 @@ class hazelcast::config inherits hazelcast {
       'complete_classpath' => $::hazelcast::complete_classpath,
     }),
   }
-  -> file { $::hazelcast::xml_config_file:
+  -> file { $::hazelcast::server_config_file:
     ensure  => present,
     content => epp("${module_name}/hazelcast.xml.epp"),
+  }
+  -> file { $::hazelcast::client_config_file:
+    ensure  => present,
+    content => epp("${module_name}/hazelcast-client.xml.epp"),
   }
 }
