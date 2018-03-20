@@ -50,9 +50,9 @@ class { '::hazelcast':
     'foo.jar',
     'bar.jar'
   ],
+  group_name        => 'hzuser',
+  group_password    => 'supersecret',
   cluster_discovery => 'tcp',
-  cluster_user      => 'hzuser',
-  cluster_password  => 'supersecret',
   cluster_members   => [
     '192.168.0.23',
     '192.168.0.24',
@@ -78,9 +78,9 @@ Of course we recomend you to configure the module using hiera, this is more reli
   hazelcast::classpath:
     - foo.jar
     - bar.jar
+  hazelcast::group_name: 'hzuser'
+  hazelcast::group_password: 'supersecret'
   hazelcast::cluster_discovery: 'tcp'
-  hazelcast::cluster_user: 'hzuser'
-  hazelcast::cluster_password: 'supersecret'
   hazelcast::cluster_members:
     - '192.168.0.23'
     - '192.168.0.24'
