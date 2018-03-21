@@ -1,78 +1,51 @@
 ---
+image: ruby:2.4.2
 stages:
   - build
-  - test_2.4.1
-  - test_2.1.9
+  - test
   - staging
 
 before_script:
-  - bundle -v
   - rm Gemfile.lock || true
   - gem update --system
   - gem update bundler
-  - gem --version
-  - bundle -v
   - bundle install --without system_tests
 
 build:
   stage: build
-  image: ruby:2.1.9
   script:
     - bundle exec rake build
 
-rubocop-2.4.1:
-  stage: test_2.4.1
-  image: ruby:2.4.1
+rubocop:
+  stage: test
   script:
     - bundle exec rake rubocop
 
-syntax-2.4.1:
-  stage: test_2.4.1
-  image: ruby:2.4.1
+syntax:
+  stage: test
   script:
     - bundle exec rake syntax lint
 
-metadata-2.4.1:
-  stage: test_2.4.1
-  image: ruby:2.4.1
+metadata:
+  stage: test
   script:
     - bundle exec rake metadata_lint
 
-rspec-puppet-2.4.1:
-  stage: test_2.4.1
-  image: ruby:2.4.1
+spec_puppet_4:
+  stage: test
   variables:
     PUPPET_GEM_VERSION: ~> 4.0
-    CHECK: spec
+    TASK: spec
   script:
     - bundle update
-    - bundle exec rake $CHECK
+    - bundle exec rake $TASK
 
-rubocop-2.1.9:
-  stage: test_2.1.9
-  image: ruby:2.1.9
-  script:
-    - bundle exec rake rubocop
-
-syntax-2.1.9:
-  stage: test_2.1.9
-  image: ruby:2.1.9
-  script:
-    - bundle exec rake syntax lint
-
-metadata-2.1.9:
-  stage: test_2.1.9
-  image: ruby:2.1.9
-  script:
-    - bundle exec rake metadata_lint
-
-rspec-puppet-2.1.9:
-  stage: test_2.1.9
-  image: ruby:2.1.9
+spec_puppet_5:
+  stage: test
   variables:
-    PUPPET_GEM_VERSION: ~> 4.0
-    CHECK: spec
+    PUPPET_GEM_VERSION: ~> 5.0
+    TASK: spec
   script:
     - bundle update
-    - bundle exec rake $CHECK
+    - bundle exec rake $TASK
 
