@@ -1,7 +1,9 @@
 ---
 stages:
+  - build
   - test_2.4.1
   - test_2.1.9
+  - staging
 
 before_script:
   - bundle -v
@@ -11,6 +13,12 @@ before_script:
   - gem --version
   - bundle -v
   - bundle install --without system_tests
+
+build:
+  stage: build
+  image: ruby:2.1.9
+  script:
+    - bundle exec rake build
 
 rubocop-2.4.1:
   stage: test_2.4.1
