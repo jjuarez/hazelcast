@@ -31,6 +31,15 @@ metadata:
   script:
     - bundle exec rake metadata_lint
 
+spec_puppet_3:
+  stage: test
+  variables:
+    PUPPET_GEM_VERSION: ~> 3.0
+    TASK: spec
+  script:
+    - bundle update
+    - bundle exec rake $TASK
+
 spec_puppet_4:
   stage: test
   variables:
