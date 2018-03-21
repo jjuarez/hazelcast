@@ -68,4 +68,25 @@ There're not features in this release, I'm just to adjust the java environment t
 * Better naming for the hazelcast cluster groups variable names
 * Avoid the use of the (damned) exec resource
 
+**Bugfixes**
 
+
+## Release 0.2.5
+
+**Features**
+
+**Bugfixes**
+
+ * The parameters of the module follow the cluster group configuration parameter names, like group.name and group.password, instead of user and password
+
+
+## Release 0.2.6
+
+**Features**
+
+ * Changes in the URL of the repository, now with the puppet prefix
+ * Support for the CentOS 7 release (easy-peasy)
+
+**Bugfixes**
+
+ * Look over the documentation
