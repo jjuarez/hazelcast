@@ -1,6 +1,6 @@
 {
   "name": "jjuarez-hazelcast",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "author": "Javier Juarez",
   "summary": "This module should helps you to setup a hazelcast cluster",
   "license": "MIT",
@@ -28,13 +28,14 @@
     {
       "operatingsystem": "Debian",
       "operatingsystemrelease": [
-        "9"
+        "9",
+        "8"
       ]
     },
     {
-      "operatingsystem": "Debian",
+      "operatingsystem": "RedHat",
       "operatingsystemrelease": [
-        "8"
+        "7"
       ]
     },
     {
