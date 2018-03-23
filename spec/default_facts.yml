@@ -5,4 +5,5 @@
 concat_basedir: "/tmp"
 ipaddress: "172.16.254.254"
 is_pe: false
-macaddress: "AA:AA:AA:AA:AA:AA"
+macaddress: "00:AA:CC:DD:CC:00"
+

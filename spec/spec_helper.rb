@@ -27,4 +27,7 @@ end
 
 RSpec.configure do |c|
   c.default_facts = default_facts
+  c.color         = true
+  c.tty           = true
+  c.formatter     = :documentation
 end

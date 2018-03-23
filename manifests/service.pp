@@ -2,18 +2,18 @@
 # The hazelcast::service class It handles the hazelcast service
 #
 class hazelcast::service inherits hazelcast {
-  include ::systemd::systemctl::daemon_reload
 
-  file { '/lib/systemd/system/hazelcast.service':
+  service { 'hazelcast':
+    ensure     => $::hazelcast::service_ensure,
+    hasrestart => true,
+    hasstatus  => true,
+    subscribe  => File[$::hazelcast::config_file],
+  }
+  -> file { '/lib/systemd/system/hazelcast.service':
     ensure  => present,
     owner   => 'root',
     group   => 'root',
     mode    => '0644',
-    content => epp("${module_name}/hazelcast.service.epp", { }),
-  }
-  ~> Class['systemd::systemctl::daemon_reload']
-
-  service { 'hazelcast':
-    ensure => $::hazelcast::service_ensure,
+    content => epp("${module_name}/hazelcast.service.epp"),
   }
 }

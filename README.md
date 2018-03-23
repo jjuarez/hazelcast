@@ -1,5 +1,8 @@
-
 # hazelcast
+
+[![Puppet Forge](http://img.shields.io/puppetforge/v/jjuarez/hazelcast.svg)](https://forge.puppetlabs.com/jjuarez/hazelcast)
+[![Pipeline Status](https://gitlab.com/homeWiFi-devops/puppet-hazelcast/badges/develop/pipeline.svg)](https://gitlab.com/homeWiFi-devops/puppet-hazelcast/commits/develop)
+
 
 #### Table of Contents
 
