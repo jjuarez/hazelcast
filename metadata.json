@@ -1,6 +1,6 @@
 {
   "name": "jjuarez-hazelcast",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "author": "Javier Juarez",
   "summary": "This module should helps you to setup a hazelcast cluster",
   "license": "MIT",
@@ -8,7 +8,10 @@
   "source": "https://gitlab.com/homeWiFi-devops/puppet-hazelcast",
   "issues_url": "https://gitlab.com/homeWiFi-devops/puppet-hazelcast/issues",
   "tags": [
-    "hazelcast", "java", "j2ee", "spring"
+    "hazelcast",
+    "java",
+    "j2ee",
+    "spring"
   ],
   "dependencies": [
     {
