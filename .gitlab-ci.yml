@@ -1,51 +1,41 @@
 ---
-image: ruby:2.4.2
 stages:
-  - build
-  - test
-  - staging
+  - test_2.4.1
 
 before_script:
+  - bundle -v
   - rm Gemfile.lock || true
   - gem update --system
   - gem update bundler
+  - gem --version
+  - bundle -v
   - bundle install --without system_tests
 
-build:
-  stage: build
-  script:
-    - bundle exec rake build
-
-rubocop:
-  stage: test
+rubocop-2.4.1:
+  stage: test_2.4.1
+  image: ruby:2.4.1
   script:
     - bundle exec rake rubocop
 
-syntax:
-  stage: test
+syntax-2.4.1:
+  stage: test_2.4.1
+  image: ruby:2.4.1
   script:
     - bundle exec rake syntax lint
 
-metadata:
-  stage: test
+metadata-2.4.1:
+  stage: test_2.4.1
+  image: ruby:2.4.1
   script:
     - bundle exec rake metadata_lint
 
-spec_puppet4:
-  stage: test
+rspec-puppet-2.4.1:
+  stage: test_2.4.1
+  image: ruby:2.4.1
   variables:
     PUPPET_GEM_VERSION: ~> 4.0
-    TASK: spec
+    CHECK: spec
   script:
     - bundle update
-    - bundle exec rake $TASK
-
-spec_puppet5:
-  stage: test
-  variables:
-    PUPPET_GEM_VERSION: ~> 5.0
-    TASK: spec
-  script:
-    - bundle update
-    - bundle exec rake $TASK
+    - bundle exec rake $CHECK
 

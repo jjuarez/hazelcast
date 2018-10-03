@@ -40,17 +40,17 @@
         </outbound-ports>
         <join>
           <multicast enabled="false"></multicast>
-          <% if $::hazelcast::cluster_discovery == 'tcp' and $::hazelcast::cluster_members.size > 0 { -%>
+<% if $::hazelcast::cluster_discovery == 'tcp' and $::hazelcast::cluster_members.size > 0 { -%>
           <tcp-ip enabled="true">
             <member-list>
-              <% $hazelcast::cluster_members.each |$member| { -%>
+<% $::hazelcast::cluster_members.each |$member| { -%>
               <member><%= $member %></member>
-              <% } -%>
+<% } -%>
             </member-list>
           </tcp-ip>
-          <% } else { -%>
+<% } else { -%>
           <tcp-ip enable="false"></tcp-ip>
-          <% } -%>
+<% } -%>
 
           <aws enabled="false">
             <access-key>my-access-key</access-key>
@@ -147,7 +147,7 @@
         will get automatically evicted from the map.
         Any integer between 0 and Integer.MAX_VALUE. 0 means infinite. Default is 0.
         -->
-        <time-to-live-seconds>0</time-to-live-seconds>
+        <time-to-live-seconds><%= $::hazelcast::time_to_live_seconds %></time-to-live-seconds>
         <!--
         Maximum number of seconds for each entry to stay idle in the map. Entries that are
         idle(not touched) for more than <max-idle-seconds> will get
@@ -278,4 +278,14 @@
     <services enable-defaults="true"/>
 
     <lite-member enabled="false"/>
+
+<% if $::hazelcast::custom_ttls.size > 0 { -%>
+<% $::hazelcast::custom_ttls.each |$ttl| { -%>
+    <map name="<%= $ttl['name'] %>">
+      <time-to-live-seconds><%= $ttl['seconds'] %></time-to-live-seconds>
+      <max-size policy="<%= $ttl['max_size_policy'] %>"><%= $ttl['max_size_value'] %></max-size>
+      <eviction-policy><%= $ttl['eviction_policy'] %></eviction-policy>
+    </map>
+<% } -%>
+<% } -%>
 </hazelcast>
