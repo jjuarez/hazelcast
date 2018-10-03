@@ -19,6 +19,5 @@
 /tmp/
 /vendor/
 /convert_report.txt
+/update_report.txt
 .DS_Store
-*.patch
-.vscode/

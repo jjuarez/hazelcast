@@ -60,7 +60,15 @@ class { '::hazelcast':
     '192.168.0.23',
     '192.168.0.24',
     '192.168.0.25'
-  ]   
+  ],
+  time_to_live =>10,
+  custom_ttls  =>[
+    {
+      name              => 'my_hash',
+      seconds           => 10,
+      policy_percentage => 10,
+      eviction_policy   => LRU
+   }
 }
 ```
 
@@ -88,6 +96,14 @@ hazelcast::cluster_members:
   - '192.168.0.23'
   - '192.168.0.24'
   - '192.168.0.25'
+hazelcast::time_to_live_seconds: 10
+hazelcast::custom_ttls:
+  - 
+    name: my_map
+    seconds: 10
+    max_size_policy: FREE_HEAP_PERCETAGE
+    max_size_value: 10
+    eviction_policy: LFU
 ```
 
 ### Beginning with hazelcast

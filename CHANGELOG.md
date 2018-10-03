@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.2.11
+
+### Features
+Now the module supports the configuration of these parameters:
+
+* time-to-live-seconds, to configure a general TTL, and avoid the 'infinite' policy
+* A set of specific TTL
+
 ## Release 0.2.10
 
 ### Features
