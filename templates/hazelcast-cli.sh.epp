@@ -1,3 +1,3 @@
 #!/bin/sh
 
-<%= $::hazelcast::java %> -Djava.net.preferIPv4Stack=true -Dhazelcast.config=<%= $::hazelcast::client_config_file %> -cp <%= $::hazelcast::config_dir %>:<%= $::hazelcast::all_jar_file %> com.hazelcast.client.console.ClientConsoleApp
+<%= $::hazelcast::java %> -Djava.net.preferIPv4Stack=true -Dhazelcast.config=<%= $::hazelcast::client_config_file %> -classpath <%= $::hazelcast::config_dir %>:<%= $::hazelcast::all_jar_file %> com.hazelcast.client.console.ClientConsoleApp

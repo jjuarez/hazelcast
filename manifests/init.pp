@@ -49,17 +49,20 @@ class hazelcast(
                         }]]]        $custom_ttls,
 ){
 
-  $install_dir        = [$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"].join('/')
-  $config_file        = [$::hazelcast::config_dir, 'hazelcast.conf'].join('/')
-  $server_config_file = [$::hazelcast::config_dir, 'hazelcast.xml'].join('/')
-  $client_config_file = [$::hazelcast::config_dir, 'hazelcast-client.xml'].join('/')
-  $cli                = [$::hazelcast::install_dir, 'bin', 'hazelcast-cli.sh'].join('/')
-  $all_jar_file       = [$::hazelcast::install_dir, 'lib', "hazelcast-all-${::hazelcast::version}.jar"].join('/')
-  $complete_classpath = [$all_jar_file, $::hazelcast::classpath.flatten].join(':')
+  $tar_file           = "hazelcast-${::hazelcast::version}.tar.gz"
+  $tmp_file           = join(['/tmp', $::hazelcast::tar_file], '/')
+  $install_dir        = join([$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"], '/')
+  $link_dir           = join([$::hazelcast::root_dir, 'hazelcast'], '/')
+  $all_jar_file       = join([$::hazelcast::install_dir, 'lib', "hazelcast-all-${::hazelcast::version}.jar"], '/')
+  $cli                = join([$::hazelcast::install_dir, 'bin', 'hazelcast-cli.sh'], '/')
+  $config_file        = join([$::hazelcast::config_dir, 'hazelcast.conf'], '/')
+  $server_config_file = join([$::hazelcast::config_dir, 'hazelcast.xml'], '/')
+  $client_config_file = join([$::hazelcast::config_dir, 'hazelcast-client.xml'], '/')
+  $complete_classpath = join([$all_jar_file, $::hazelcast::classpath.flatten], ':')
 
-  contain hazelcast::install
-  contain hazelcast::config
-  contain hazelcast::service
+  contain '::hazelcast::install'
+  contain '::hazelcast::config'
+  contain '::hazelcast::service'
 
   Class['::hazelcast::install']
   -> Class['::hazelcast::config']

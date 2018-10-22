@@ -7,37 +7,42 @@ class hazelcast::install inherits hazelcast {
   File {
     owner => $::hazelcast::user,
     group => $::hazelcast::group,
+    mode  => '0750',
   }
 
   if $::hazelcast::manage_user {
     ensure_resource('group', $::hazelcast::group, {
       ensure => present,
     })
+
     ensure_resource('user', $::hazelcast::user, {
-      ensure => present,
-      gid    => $::hazelcast::group,
+      ensure  => present,
+      gid     => $::hazelcast::group,
+      require => Group[$::hazelcast::group],
     })
   }
 
-  file { $::hazelcast::install_dir:
+  archive { $::hazelcast::tmp_file:
+    ensure       => present,
+    extract      => true,
+    extract_path => $::hazelcast::root_dir,
+    source       => $::hazelcast::download_url,
+    creates      => join([$::hazelcast::install_dir, 'readme.html'], '/'),
+    cleanup      => true,
+  }
+  -> file { $::hazelcast::install_dir:
     ensure  => directory,
-    recurse => true,
     owner   => $::hazelcast::user,
     group   => $::hazelcast::group,
-  }
-  -> archive { '/tmp/hazelcast.tar.gz':
-    ensure       => present,
-    source       => $::hazelcast::download_url,
-    extract_path => $::hazelcast::root_dir,
-    creates      => [$::hazelcast::install_dir, 'installed'].join('/'),
-    user         => $::hazelcast::user,
-    group        => $::hazelcast::group,
-    extract      => true,
-    cleanup      => false,
+    mode    => '0750',
+    recurse => true
   }
   -> file { $::hazelcast::cli:
     ensure  => present,
-    mode    => '0750',
     content => epp("${module_name}/hazelcast-cli.sh.epp"),
+  }
+  -> file { $::hazelcast::link_dir:
+    ensure  => link,
+    target  => $::hazelcast::install_dir,
   }
 }

@@ -1,12 +1,12 @@
 ---
-hazelcast::version: '3.9.3'
+hazelcast::version: '3.9.4'
 hazelcast::root_dir: '/opt'
 hazelcast::config_dir: '/etc/hazelcast'
 hazelcast::service_ensure: 'running'
 hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
-hazelcast::download_url: 'https://download.hazelcast.com/download.jsp?version=hazelcast-3.9.3&type=tar&p=288631785'
+hazelcast::download_url: "https://download.hazelcast.com/download.jsp?version=hazelcast-%{lookup('hazelcast::version')}&type=tar&p="
 hazelcast::java: '/usr/bin/java'
 hazelcast::java_options: '-server -Djava.net.preferIPv4Stack=true -Dhazelcast.config=/etc/hazelcast/hazelcast.xml'
 hazelcast::classpath: [ ]
