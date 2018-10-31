@@ -1,6 +1,6 @@
 {
   "name": "jjuarez-hazelcast",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "author": "Javier Juarez",
   "summary": "This module should helps you to setup a hazelcast cluster",
   "license": "MIT",
