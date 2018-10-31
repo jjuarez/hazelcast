@@ -28,7 +28,11 @@
       <name><%= $::hazelcast::group_name %></name>
       <password><%= $::hazelcast::group_password %></password>
     </group>
+<% if $::hazelcast::management_center_enabled { -%>    
+    <management-center enabled="true"><%= $::hazelcast::management_center_url %></management-center>
+<% else { -%>
     <management-center enabled="false">http://localhost:8080/mancenter</management-center>
+<% } -%>
     <network>
         <port auto-increment="false" port-count="100">5701</port>
         <outbound-ports>
