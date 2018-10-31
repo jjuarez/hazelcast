@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.3.1
+
+### Features
+
+* Add the capability to configure a management center
+
+### Bugfixes
+
 ## Release 0.2.11
 
 ### Features
