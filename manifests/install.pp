@@ -42,7 +42,7 @@ class hazelcast::install inherits hazelcast {
     content => epp("${module_name}/hazelcast-cli.sh.epp"),
   }
   -> file { $::hazelcast::link_dir:
-    ensure  => link,
-    target  => $::hazelcast::install_dir,
+    ensure => link,
+    target => $::hazelcast::install_dir,
   }
 }
