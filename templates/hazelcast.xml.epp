@@ -30,7 +30,7 @@
     </group>
 <% if $::hazelcast::management_center_enabled { -%>    
     <management-center enabled="true"><%= $::hazelcast::management_center_url %></management-center>
-<% else { -%>
+<% } else { -%>
     <management-center enabled="false">http://localhost:8080/mancenter</management-center>
 <% } -%>
     <network>
