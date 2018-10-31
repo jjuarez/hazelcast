@@ -1,7 +1,7 @@
 # hazelcast
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/jjuarez/hazelcast.svg)](https://forge.puppetlabs.com/jjuarez/hazelcast)
-[![Pipeline Status](https://gitlab.com/homeWiFi-devops/puppet-hazelcast/badges/develop/pipeline.svg)](https://gitlab.com/homeWiFi-devops/puppet-hazelcast/commits/develop)
+[![Pipeline Status](https://gitlab.com/FonTech/homeWiFi/devops/puppet-hazelcast/badges/develop/pipeline.svg)](https://gitlab.com/FonTech/homeWiFi/devops/puppet-hazelcast/commits/develop)
 
 
 #### Table of Contents
@@ -39,14 +39,14 @@ Here you can see a more complex setup
 
 ```puppet
 class { '::hazelcast':
-  version           => '3.9.3',
   root_dir          => '/opt',
   config_dir        => '/etc/hazelcast',
+  version           => '3.9.4',
   service_ensure    => 'running',
   manage_user       => true,
   user              => 'hazelcast',
   group             => 'hazelcast',
-  download_url      => 'http://download.hazelcast.com/download.jsp?version=3.9.3&type=tar&p=28888',
+  download_url      => 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p=',
   java_home         => '/usr/lib/jvm/jre1.8.0',
   java_options      => '-Dfoo=bar',
   classpath         => [
@@ -61,29 +61,23 @@ class { '::hazelcast':
     '192.168.0.24',
     '192.168.0.25'
   ],
-  time_to_live =>10,
-  custom_ttls  =>[
-    {
-      name              => 'my_hash',
-      seconds           => 10,
-      policy_percentage => 10,
-      eviction_policy   => LRU
-   }
 }
 ```
+
+
 
 Of course we recommend you to configure the module using hiera, this is more reliable and flexible depending of your hierarchy, you can view the previous example here:
 
 ```yaml
 ---
-hazelcast::version: '3.9.3'
 hazelcast::root_dir: '/opt'
 hazelcast::config_dir: '/etc/hazelcast'
+hazelcast::version: '3.9.4'
 hazelcast::service_ensure: 'running'
 hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
-hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.3&type=tar&p=28888'
+hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
 hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
 hazelcast::java_options: '-Dfoo=bar'
 hazelcast::classpath:
@@ -96,14 +90,58 @@ hazelcast::cluster_members:
   - '192.168.0.23'
   - '192.168.0.24'
   - '192.168.0.25'
+```
+
+Another example of configuration but this one more focused on the custom TTL configuration would be like this one:
+
+```puppet
+class { '::hazelcast':
+  version           => '3.9.4',
+  download_url      => 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p=',
+  java_home         => '/usr/lib/jvm/jre1.8.0',
+  group_name        => 'hzuser',
+  group_password    => 'supersecret',
+  cluster_discovery => 'tcp',
+  cluster_members   => [
+    '192.168.0.23',
+    '192.168.0.24',
+    '192.168.0.25'
+  ],
+  time_to_live =>10,
+  custom_ttls  =>[
+    {
+      name            => 'my_hash',
+      seconds         => 10,
+      max_size_policy => 10,
+      max_size_value  => 15
+      eviction_policy => LRU
+   }
+  ],
+}
+
+```
+you can add as many TTL configuration as you need, and of course is also possible to set this configuration in hiera:
+
+```yaml
+---
+hazelcast::version: '3.9.4'
+hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
+hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
+hazelcast::group_name: 'hzuser'
+hazelcast::group_password: 'supersecret'
+hazelcast::cluster_discovery: 'tcp'
+hazelcast::cluster_members:
+  - '192.168.0.23'
+  - '192.168.0.24'
+  - '192.168.0.25'
 hazelcast::time_to_live_seconds: 10
 hazelcast::custom_ttls:
   - 
     name: my_map
     seconds: 10
-    max_size_policy: FREE_HEAP_PERCETAGE
-    max_size_value: 10
-    eviction_policy: LFU
+    max_size_policy: 10
+    max_size_value: 15
+    eviction_policy: LRU
 ```
 
 ### Beginning with hazelcast
