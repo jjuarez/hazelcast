@@ -174,6 +174,7 @@ The module supports only **OS distributions** based on systemd, as you might kno
 
 * Debian Stretch
 * Debian Jessie
+* Red-Hat
 * CentOS 7
 
 until now, but we've plans to support other distributions like Ubuntu ASAP.
@@ -182,7 +183,7 @@ Cluster discovery mechanims supported:
 
 * TCP
 
-The only discovery mechanims supported is TCP in the current version (0.2.6 at the time to write this), but we're working hard in the AWS discovery
+The only discovery mechanims supported is TCP in the current version (0.2.6 at the time to write this), but we've plans to develop the AWS discovery
 
 ## Development
 
