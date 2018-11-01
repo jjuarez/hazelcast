@@ -116,8 +116,9 @@ To a complete description of the method of discovery I encorage you to take a lo
 |region|The AWS region|no| us-west-1 |
 |host_header|The Amazon host header domain|no| amazonaws.com |
 |sg_name|The identificator of a security group which allow access to the cluster instances|no|-|
-|tag_key|The key of the tag to filter the ec2 instances|no|-|
-|tag_value|The value of the tag key to filter the ec2 instances|no|-|
+|tag_key|The key of the tag to filter the ec2 instances|yes|-|
+|tag_value|The value of the tag key to filter the ec2 instances|yes|-|
+
 
 
 ```yaml
@@ -211,6 +212,7 @@ until now, but we've plans to support other distributions like Ubuntu ASAP.
 
 * TCP
 * Multicast
+* AWS: EC2 tags and Security group
 
 ## Development
 
