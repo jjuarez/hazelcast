@@ -8,7 +8,7 @@
 
 1. [Description](#description)
 2. [Setup - The basics of getting started with hazelcast](#setup)
-    * [Setup requirements](#setup-requirements)
+    * [Setup examples](#setup-examples)
     * [Beginning with hazelcast](#beginning-with-hazelcast)
 3. [Usage - Configuration options and additional functionality](#usage)
 4. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
@@ -17,7 +17,7 @@
 
 ## Description
 
-The aim of this module is quite simple, to help you with the instalation and setup of an hazelcast cluster
+The aim of this module is quite simple, to help you with the instalation and setup of a hazelcast server or cluster
 
 ## Setup
 
@@ -33,9 +33,11 @@ or better using the import clause in this form:
 import '::hazelcast'
 ```
 
-### Setup Requirements
+### Setup examples
+#### Cluster discovery
+##### TCP
 
-Here you can see a more complex setup
+Here you can see a more complex setup for a cluster of three members doing the discovery by TCP
 
 ```puppet
 class { '::hazelcast':
@@ -48,11 +50,7 @@ class { '::hazelcast':
   group             => 'hazelcast',
   download_url      => 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p=',
   java_home         => '/usr/lib/jvm/jre1.8.0',
-  java_options      => '-Dfoo=bar',
-  classpath         => [
-    'foo.jar',
-    'bar.jar'
-  ],
+  java_options      => '-Xss256k -Xms64m -Xmx128m -XX:+UseG1GC -Dsome.awesome.superkey=value',
   group_name        => 'hzuser',
   group_password    => 'supersecret',
   cluster_discovery => 'tcp',
@@ -64,9 +62,30 @@ class { '::hazelcast':
 }
 ```
 
+Of course we recommend you to configure the module always using hiera, this is more reliable and flexible depending of your hierarchy, you can view the previous example here:
 
+```yaml
+---
+hazelcast::root_dir: '/opt'
+hazelcast::config_dir: '/etc/hazelcast'
+hazelcast::version: '3.9.4'
+hazelcast::service_ensure: 'running'
+hazelcast::manage_user: true
+hazelcast::user: 'hazelcast'
+hazelcast::group: 'hazelcast'
+hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
+hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
+hazelcast::java_options: '-Xss256k -Xms64m -Xmx128m -XX:+UseG1GC -Dsome.awesome.superkey=value'
+hazelcast::group_name: 'hzuser'
+hazelcast::group_password: 'supersecret'
+hazelcast::cluster_discovery: 'tcp'
+hazelcast::cluster_members:
+  - '192.168.0.23'
+  - '192.168.0.24'
+  - '192.168.0.25'
+```
 
-Of course we recommend you to configure the module using hiera, this is more reliable and flexible depending of your hierarchy, you can view the previous example here:
+##### Multicast
 
 ```yaml
 ---
@@ -80,47 +99,13 @@ hazelcast::group: 'hazelcast'
 hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
 hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
 hazelcast::java_options: '-Dfoo=bar'
-hazelcast::classpath:
-  - foo.jar
-  - bar.jar
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'supersecret'
-hazelcast::cluster_discovery: 'tcp'
-hazelcast::cluster_members:
-  - '192.168.0.23'
-  - '192.168.0.24'
-  - '192.168.0.25'
+hazelcast::cluster_discovery: 'multicast'
 ```
 
-Another example of configuration but this one more focused on the custom TTL configuration would be like this one:
-
-```puppet
-class { '::hazelcast':
-  version           => '3.9.4',
-  download_url      => 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p=',
-  java_home         => '/usr/lib/jvm/jre1.8.0',
-  group_name        => 'hzuser',
-  group_password    => 'supersecret',
-  cluster_discovery => 'tcp',
-  cluster_members   => [
-    '192.168.0.23',
-    '192.168.0.24',
-    '192.168.0.25'
-  ],
-  time_to_live =>10,
-  custom_ttls  =>[
-    {
-      name            => 'my_hash',
-      seconds         => 10,
-      max_size_policy => 10,
-      max_size_value  => 15
-      eviction_policy => LRU
-   }
-  ],
-}
-
-```
-you can add as many TTL configuration as you need, and of course is also possible to set this configuration in hiera:
+#### Custom TTLs
+Another example of configuration but this one focused on the custom TTL configuration would be like this one, and remember you can add as many TTL configuratio as you need
 
 ```yaml
 ---
@@ -129,11 +114,7 @@ hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9
 hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'supersecret'
-hazelcast::cluster_discovery: 'tcp'
-hazelcast::cluster_members:
-  - '192.168.0.23'
-  - '192.168.0.24'
-  - '192.168.0.25'
+hazelcast::cluster_discovery: 'multicast'
 hazelcast::time_to_live_seconds: 10
 hazelcast::custom_ttls:
   - 
@@ -142,19 +123,25 @@ hazelcast::custom_ttls:
     max_size_policy: 10
     max_size_value: 15
     eviction_policy: LRU
+   - name: another_map
+     seconds: 35
+     max_size_policy: 250
+     max_size_value: 15
+     eviction_policy: LFU
 ```
 
 ### Beginning with hazelcast
 
-You can take a look to the awesome documentation of the Hazelcast project [here](https://hazelcast.org/documentation/)
+You have to take a look to the awesome documentation of the Hazelcast project [here](https://hazelcast.org/documentation/)
 
 ## Usage
 
-Use the module is extremely easy, just add it to your Puppetfile, import the class in your profile class and configure it with hiera.
-The module deploy a small CLI util to check the status of the cluster, this is deployed among the hazelcast package, for example, (with root_dir=/opt and version=3.9.3) it will be deployed in:
+I think to use the module have to be pretty easy, just add it to your Puppetfile, import the class in your profile class and configure it with hiera.
+The module deploy a small CLI util to check the status of the cluster, this is deployed among the hazelcast package, for example, (with root_dir=/opt and version=3.9.4) it will be deployed in:
 
 ```
 /opt/hazelcast-3.9.3/bin/hazelcast-cli.sh
+/opt/hazelcast/bin/hazelcast-cli.sh
 ```
 
 with the appropriate configuration file to fit the cluster deployed, this file is located in (with config_dir=/etc/hazelcast)
@@ -179,13 +166,12 @@ The module supports only **OS distributions** based on systemd, as you might kno
 
 until now, but we've plans to support other distributions like Ubuntu ASAP.
 
-Cluster discovery mechanims supported:
+## Cluster discovery mechanims supported:
 
 * TCP
-
-The only discovery mechanims supported is TCP in the current version (0.2.6 at the time to write this), but we've plans to develop the AWS discovery
+* Multicast
 
 ## Development
 
-Please feel free to send me your ideas in the form of pull requests, and fill an issue if you discover one
+Please feel free to send me your ideas in the form of pull requests, and fill me an issue if you discover one
 
