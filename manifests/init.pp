@@ -16,6 +16,7 @@
 # @param java                         This parameter should point to the java executable
 # @param java_options                 This is a "free" string to add your favourite JVM's options
 # @param classpath                    The classpath to launch the JVM
+# @param init_style                   The kind of service provider (upstart, systemd, initd, etc)
 # @param service_ensure               The status desired for the service
 # @param group_name                   The user of the cluster
 # @param group_password               The password of the cluster user
@@ -38,6 +39,7 @@ class hazelcast(
   Optional[Stdlib::Absolutepath]          $java,
   Optional[String]                        $java_options,
   Optional[Array[String]]                 $classpath,
+  Optional[String]                        $init_style,
   Optional[Stdlib::Ensure::Service]       $service_ensure,
   Optional[String]                        $group_name,
   Optional[String]                        $group_password,
@@ -73,10 +75,10 @@ class hazelcast(
   $client_config_file  = join([$::hazelcast::config_dir, 'hazelcast-client.xml'], '/')
   $complete_classpath  = join([$all_jar_file, $::hazelcast::classpath.flatten], ':')
 
-  if $cluster_discovery == 'aws' {
+  if $::hazelcast::cluster_discovery == 'aws' {
     # Check for mandatory configuration items
     ['access_key', 'secret_key', 'tag_key', 'tag_value'].each |String $mp| {
-      unless $cluster_discovery_aws[$mp] {
+      unless $::hazelcast::cluster_discovery_aws[$mp] {
         fail("The AWS discovery requires parameter: ${mp}")
       }
     }

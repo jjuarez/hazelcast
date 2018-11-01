@@ -4,6 +4,8 @@
 class hazelcast::install inherits hazelcast {
   include ::archive
 
+  $flag_file = join([$::hazelcast::install_dir, 'readme.html'], '/')
+
   File {
     owner => $::hazelcast::user,
     group => $::hazelcast::group,
@@ -27,7 +29,7 @@ class hazelcast::install inherits hazelcast {
     extract      => true,
     extract_path => $::hazelcast::root_dir,
     source       => $::hazelcast::download_url,
-    creates      => join([$::hazelcast::install_dir, 'readme.html'], '/'),
+    creates      => $flag_file,
     cleanup      => true,
   }
   -> file { $::hazelcast::install_dir:
@@ -39,7 +41,7 @@ class hazelcast::install inherits hazelcast {
   }
   -> file { $::hazelcast::cli:
     ensure  => present,
-    content => epp("${module_name}/hazelcast-cli.sh.epp"),
+    content => epp("${module_name}/addons/hazelcast-cli.sh.epp"),
   }
   -> file { $::hazelcast::link_dir:
     ensure => link,

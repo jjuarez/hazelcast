@@ -20,12 +20,12 @@ describe 'hazelcast' do
       {
         root_dir: '/opt',
         config_dir: '/etc/hazelcast',
-        version: '3.9.3',
+        version: '3.9.4',
         service_ensure: 'running',
         manage_user: true,
         user: 'hazelcast',
         group: 'hazelcast',
-        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.3&format=tar&p28848',
+        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.4&format=tar',
         java: '/usr/bin/java',
         java_options: '-Xss256k -Xms64 -Xmx128 -Djvm_option=jvm_value -Dfoo=bar',
       }
@@ -61,12 +61,12 @@ describe 'hazelcast' do
       {
         root_dir: '/opt',
         config_dir: '/etc/hazelcast',
-        version: '3.9.3',
+        version: '3.9.4',
         service_ensure: 'running',
         manage_user: true,
         user: 'hazelcast',
         group: 'hazelcast',
-        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.3&format=tar&p28848',
+        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.4&format=tar',
         java: '/usr/bin/java',
         java_options: '-Xss256k -Xms64 -Xmx128 -Djvm_option=jvm_value -Dfoo=bar',
       }
@@ -102,12 +102,12 @@ describe 'hazelcast' do
       {
         root_dir: '/opt',
         config_dir: '/etc/hazelcast',
-        version: '3.9.3',
+        version: '3.9.4',
         service_ensure: 'running',
         manage_user: true,
         user: 'hazelcast',
         group: 'hazelcast',
-        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.3&format=tar&p28848',
+        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.4&format=tar',
         java: '/usr/bin/java',
         java_options: '-Xss256k -Xms64 -Xmx128 -Djvm_option=jvm_value -Dfoo=bar',
       }
@@ -143,12 +143,53 @@ describe 'hazelcast' do
       {
         root_dir: '/opt',
         config_dir: '/etc/hazelcast',
-        version: '3.9.3',
+        version: '3.9.4',
         service_ensure: 'running',
         manage_user: true,
         user: 'hazelcast',
         group: 'hazelcast',
-        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.3&format=tar&p28848',
+        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.4&format=tar',
+        java: '/usr/bin/java',
+        java_options: '-Xss256k -Xms64 -Xmx128 -Djvm_option=jvm_value -Dfoo=bar',
+      }
+    end
+
+    describe 'Compile all the dependencies' do
+      it { is_expected.to compile.with_all_deps }
+    end
+
+    describe 'Testing the dependencies among the classes' do
+      it { is_expected.to contain_class('hazelcast::install') }
+      it { is_expected.to contain_class('hazelcast::config') }
+      it { is_expected.to contain_class('hazelcast::service') }
+      it { is_expected.to contain_class('hazelcast::install').that_comes_before('Class[hazelcast::config]') }
+      it { is_expected.to contain_class('hazelcast::service').that_subscribes_to('Class[hazelcast::config]') }
+    end
+  end
+
+  context 'Ubuntu 16.04' do
+    let(:facts) do
+      {
+        os: {
+          family: 'Debian',
+          name: 'Ubuntu',
+          release: {
+            major: '16.04',
+          },
+        },
+      }
+    end
+
+    let(:params) do
+      {
+        root_dir: '/opt',
+        config_dir: '/etc/hazelcast',
+        version: '3.9.4',
+        service_ensure: 'running',
+        manage_user: true,
+        user: 'hazelcast',
+        group: 'hazelcast',
+        download_url: 'http://hazelcast.com/download/download.jsp?version=3.9.4&format=tar',
         java: '/usr/bin/java',
         java_options: '-Xss256k -Xms64 -Xmx128 -Djvm_option=jvm_value -Dfoo=bar',
       }
