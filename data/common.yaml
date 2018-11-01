@@ -8,12 +8,13 @@ hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
 hazelcast::download_url: "https://download.hazelcast.com/download.jsp?version=hazelcast-%{lookup('hazelcast::version')}&type=tar&p="
 hazelcast::java: '/usr/bin/java'
-hazelcast::java_options: '-server -Djava.net.preferIPv4Stack=true -Dhazelcast.config=/etc/hazelcast/hazelcast.xml'
+hazelcast::java_options: '-Djava.net.preferIPv4Stack=true -Dhazelcast.config=/etc/hazelcast/hazelcast.xml'
 hazelcast::classpath: []
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'hzpass'
 hazelcast::cluster_discovery: 'tcp'
 hazelcast::cluster_members: []
+hazelcast::cluster_discovery_aws: {}
 hazelcast::time_to_live_seconds: 0
 hazelcast::custom_ttls: []
 hazelcast::management_center_enabled: false

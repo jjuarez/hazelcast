@@ -60,20 +60,22 @@
           <tcp-ip enable="false"></tcp-ip>
 <% } -%>
 
-          <aws enabled="false">
-            <access-key>my-access-key</access-key>
-            <secret-key>my-secret-key</secret-key>
-            <!--optional, default is us-east-1 -->
-            <region>us-west-1</region>
-            <!--optional, default is ec2.amazonaws.com. If set, region shouldn't be set as it will override this property -->
-            <host-header>ec2.amazonaws.com</host-header>
-            <!-- optional, only instances belonging to this group will be discovered, default will try all running instances -->
-            <security-group-name>hazelcast-sg</security-group-name>
-            <tag-key>type</tag-key>
-            <tag-value>hz-nodes</tag-value>
+<% if $::hazelcast::cluster_discovery == 'aws' { -%>
+          <aws enabled="true">
+            <access-key><%= $::hazelcast::aws_config['access_key'] %></access-key>
+            <secret-key><%= $::hazelcast::aws_config['secret_key'] %></secret-key>
+            <region><%= $::hazelcast::aws_config['region'] %></region>
+            <host-header><%= $::hazelcast::aws_config['host_header'] %></host-header>
+<% if $::hazelcast::aws_config['security_group_name'] { -%>
+            <security-group-name><%= $::hazelcast::aws_config['security_group_name'] %></security-group-name>
+<% } -%>
+            <tag-key><%= $::hazelcast::aws_config['tag_key'] %></tag-key>
+            <tag-value><%= $::hazelcast::aws_config['tag_value'] %></tag-value>
           </aws>
+<% } else { -%>
+          <aws enabled="false"/>
+<% } -%>
 
-          <!-- TODO: Look at this!!! -->
           <discovery-strategies>
           </discovery-strategies>
         </join>
