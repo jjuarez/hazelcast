@@ -37,11 +37,11 @@ group :development do
 end
 
 puppet_version = ENV['PUPPET_GEM_VERSION']
-puppet_type = gem_type(puppet_version)
+puppet_type    = gem_type(puppet_version)
 facter_version = ENV['FACTER_GEM_VERSION']
-hiera_version = ENV['HIERA_GEM_VERSION']
+hiera_version  = ENV['HIERA_GEM_VERSION']
 
-gems = {}
+gems = { }
 
 gems['puppet'] = location_for(puppet_version)
 
