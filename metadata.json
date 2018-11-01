@@ -2,11 +2,11 @@
   "name": "jjuarez-hazelcast",
   "version": "0.3.2",
   "author": "Javier Juarez",
-  "summary": "This module should helps you to setup a hazelcast cluster",
+  "summary": "This module should help you to setup a hazelcast server/cluster",
   "license": "MIT",
-  "source": "https://gitlab.com/homeWiFi-devops/puppet-hazelcast",
-  "project_page": "https://gitlab.com/homeWiFi-devops/puppet-hazelcast",
-  "issues_url": "https://gitlab.com/homeWiFi-devops/puppet-hazelcast/issues",
+  "source": "https://github.com/jjuarez/puppet-hazelcast",
+  "project_page": "https://github.com/jjuarez/puppet-hazelcast",
+  "issues_url": "https://github.com/jjuarez/puppet-hazelcast/issues",
   "dependencies": [
     {
       "name": "puppetlabs/stdlib",
