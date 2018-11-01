@@ -41,7 +41,6 @@ class hazelcast(
   Optional[String]                        $group_name,
   Optional[String]                        $group_password,
   Optional[Enum['tcp','multicast']]       $cluster_discovery,
-  Optional[Boolean]                       $cluster_discovery_multicast,
   Optional[Array]                         $cluster_members,
   Optional[Integer]                       $time_to_live_seconds,
   Optional[Array[Struct[{ name            => String[1],
