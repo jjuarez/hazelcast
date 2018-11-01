@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.3.2
+
+## Features
+
+## Bugfixes
+
+* Solves some issues with the module URLs in the metadata.json file
+* Solves some errors in the documentation of the module
+
+
 ## Release 0.3.1
 
 ### Features
