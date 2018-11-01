@@ -1,7 +1,7 @@
 # hazelcast
 
 [![Puppet Forge](http://img.shields.io/puppetforge/v/jjuarez/hazelcast.svg)](https://forge.puppetlabs.com/jjuarez/hazelcast)
-[![Pipeline Status](https://gitlab.com/FonTech/homeWiFi/devops/puppet-hazelcast/badges/develop/pipeline.svg)](https://gitlab.com/FonTech/homeWiFi/devops/puppet-hazelcast/commits/develop)
+[![Build Status](https://travis-ci.org/jjuarez/puppet-hazelcast.svg?branch=master)](https://travis-ci.org/jjuarez/puppet-hazelcast)
 
 
 #### Table of Contents
