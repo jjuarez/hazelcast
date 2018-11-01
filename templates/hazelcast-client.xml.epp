@@ -9,11 +9,11 @@
 
   <network>
     <cluster-members>
-    <% if $::hazelcast::cluster_discovery == 'tcp' and $::hazelcast::cluster_members.size > 0 { -%>
-    <% $::hazelcast::cluster_members.each |$member| { -%>
+<% if $::hazelcast::cluster_discovery == 'tcp' and $::hazelcast::cluster_members.size > 0 { -%>
+<% $::hazelcast::cluster_members.each |$member| { -%>
       <address><%= $member -%></address>
-    <% } -%> 
+<% } -%>
     </cluster-members>
-    <% } -%> 
+<% } -%>
   </network>
 </hazelcast-client>

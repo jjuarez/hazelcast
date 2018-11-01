@@ -41,54 +41,45 @@ class hazelcast(
   Optional[Stdlib::Ensure::Service]       $service_ensure,
   Optional[String]                        $group_name,
   Optional[String]                        $group_password,
-  Optional[Enum['tcp','multicast','aws']] $cluster_discovery,
+  Optional[Enum[tcp,multicast,aws]]       $cluster_discovery,
   Optional[Array]                         $cluster_members,
-  Optional[Hash]                          $cluster_discovery_aws,
+  Optional[Struct[{ access_key  => Optional[String],
+                    secret_key  => Optional[String],
+                    region      => Optional[String],
+                    host_header => Optional[String],
+                    sg_name     => Optional[String],
+                    tag_key     => Optional[String],
+                    tag_value   => Optional[String]
+                  }]]                     $cluster_discovery_aws,
   Optional[Integer]                       $time_to_live_seconds,
   Optional[Array[Struct[{ name            => String[1],
                           seconds         => Integer,
                           max_size_policy => String[1],
                           max_size_value  => Integer,
-                          eviction_policy => Enum['LFU', 'LRU']
+                          eviction_policy => Enum['LFU','LRU']
                         }]]]              $custom_ttls,
   Optional[Boolean]                       $management_center_enabled,
   Optional[Stdlib::Httpurl]               $management_center_url,
 ){
 
-  $tar_file           = "hazelcast-${::hazelcast::version}.tar.gz"
-  $tmp_file           = join(['/tmp', $::hazelcast::tar_file], '/')
-  $install_dir        = join([$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"], '/')
-  $link_dir           = join([$::hazelcast::root_dir, 'hazelcast'], '/')
-  $all_jar_file       = join([$::hazelcast::install_dir, 'lib', "hazelcast-all-${::hazelcast::version}.jar"], '/')
-  $cli                = join([$::hazelcast::install_dir, 'bin', 'hazelcast-cli.sh'], '/')
-  $config_file        = join([$::hazelcast::config_dir, 'hazelcast.conf'], '/')
-  $server_config_file = join([$::hazelcast::config_dir, 'hazelcast.xml'], '/')
-  $client_config_file = join([$::hazelcast::config_dir, 'hazelcast-client.xml'], '/')
-  $complete_classpath = join([$all_jar_file, $::hazelcast::classpath.flatten], ':')
-  $aws_config         = {
-    'region'      => 'us-west-1',
-    'host_header' => 'ec2.amazonaws.com'
-  }
+  $tar_file            = "hazelcast-${::hazelcast::version}.tar.gz"
+  $tmp_file            = join(['/tmp', $::hazelcast::tar_file], '/')
+  $install_dir         = join([$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"], '/')
+  $link_dir            = join([$::hazelcast::root_dir, 'hazelcast'], '/')
+  $all_jar_file        = join([$::hazelcast::install_dir, 'lib', "hazelcast-all-${::hazelcast::version}.jar"], '/')
+  $cli                 = join([$::hazelcast::install_dir, 'bin', 'hazelcast-cli.sh'], '/')
+  $config_file         = join([$::hazelcast::config_dir, 'hazelcast.conf'], '/')
+  $server_config_file  = join([$::hazelcast::config_dir, 'hazelcast.xml'], '/')
+  $client_config_file  = join([$::hazelcast::config_dir, 'hazelcast-client.xml'], '/')
+  $complete_classpath  = join([$all_jar_file, $::hazelcast::classpath.flatten], ':')
 
   if $cluster_discovery == 'aws' {
     # Check for mandatory configuration items
-    if ! $cluster_discovery_aws['access_key'] {
-      raise('AWS discovery access_key configuration is mandatory')
+    ['access_key', 'secret_key', 'tag_key', 'tag_value'].each |String $mp| {
+      unless $cluster_discovery_aws[$mp] {
+        fail("The AWS discovery requires parameter: ${mp}")
+      }
     }
-
-    if ! $cluster_discovery_aws['secret_key'] {
-      raise('AWS discovery secret_key configuration is mandatory')
-    }
-
-    if ! $cluster_discovery_aws['tag_key']  {
-      raise('AWS discovery tag_key configuration is mandatory')
-    }
-
-    if ! $cluster_discovery_aws['tag_value'] {
-      raise('AWS discovery tag_value configuration is mandatory')
-    }
-
-    $aws_config = merge($aws_config, $cluster_discovery_aws)
   }
 
   contain '::hazelcast::install'
@@ -97,4 +88,5 @@ class hazelcast(
 
   Class['::hazelcast::install']
   -> Class['::hazelcast::config']
-  ~> Class['::hazelcast::service']}
+  ~> Class['::hazelcast::service']
+}

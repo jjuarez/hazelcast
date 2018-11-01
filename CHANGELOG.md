@@ -5,6 +5,15 @@ All notable changes to this project will be documented in this file.
 ## Release 0.3.2
 
 ## Features
+* Adds the simples example possible to the documentation
+* Adds AWS discovery capabilities
+
+## Bugfixes
+* Doc: Solves a small issue in the README.md file
+
+## Release 0.3.2
+
+## Features
 * Adds the capability of configure the cluster discovery with multicast
 * Adds some new configuration examples
 

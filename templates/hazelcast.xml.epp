@@ -44,9 +44,9 @@
         </outbound-ports>
         <join>
 <% if $::hazelcast::cluster_discovery == 'multicast' { -%>
-          <multicast enabled="true"></multicast>
+          <multicast enabled="true"/>
 <% } else { -%>
-          <multicast enabled="false"></multicast>
+          <multicast enabled="false"/>
 <% } -%>
 <% if $::hazelcast::cluster_discovery == 'tcp' and $::hazelcast::cluster_members.size > 0 { -%>
           <tcp-ip enabled="true">
@@ -57,20 +57,24 @@
             </member-list>
           </tcp-ip>
 <% } else { -%>
-          <tcp-ip enable="false"></tcp-ip>
+          <tcp-ip enable="false"/>
 <% } -%>
 
 <% if $::hazelcast::cluster_discovery == 'aws' { -%>
           <aws enabled="true">
-            <access-key><%= $::hazelcast::aws_config['access_key'] %></access-key>
-            <secret-key><%= $::hazelcast::aws_config['secret_key'] %></secret-key>
-            <region><%= $::hazelcast::aws_config['region'] %></region>
-            <host-header><%= $::hazelcast::aws_config['host_header'] %></host-header>
-<% if $::hazelcast::aws_config['security_group_name'] { -%>
-            <security-group-name><%= $::hazelcast::aws_config['security_group_name'] %></security-group-name>
+            <access-key><%= $::hazelcast::cluster_discovery_aws['access_key'] %></access-key>
+            <secret-key><%= $::hazelcast::cluster_discovery_aws['secret_key'] %></secret-key>
+<% if $::hazelcast::cluster_discovery_aws['region'] { -%>
+            <region><%= $::hazelcast::cluster_discovery_aws['region'] %></region>
 <% } -%>
-            <tag-key><%= $::hazelcast::aws_config['tag_key'] %></tag-key>
-            <tag-value><%= $::hazelcast::aws_config['tag_value'] %></tag-value>
+<% if $::hazelcast::cluster_discovery_aws['host_header'] { -%>
+            <host-header><%= $::hazelcast::cluster_discovery_aws['host_header'] %></host-header>
+<% } -%>
+<% if $::hazelcast::cluster_discovery_aws['sg_name'] { -%>
+            <security-group-name><%= $::hazelcast::cluster_discovery_aws['security_group_name'] %></security-group-name>
+<% } -%>
+            <tag-key><%= $::hazelcast::cluster_discovery_aws['tag_key'] %></tag-key>
+            <tag-value><%= $::hazelcast::cluster_discovery_aws['tag_value'] %></tag-value>
           </aws>
 <% } else { -%>
           <aws enabled="false"/>

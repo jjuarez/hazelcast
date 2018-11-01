@@ -27,10 +27,10 @@ A minimal setup using the default parameter values would be something like this:
 class { '::hazelcast': }
 ```
 
-or better using the import clause in this form:
+or better using the include clause in this form:
 
 ```puppet
-import '::hazelcast'
+include '::hazelcast'
 ```
 
 ### Setup examples
@@ -102,6 +102,47 @@ hazelcast::java_options: '-Dfoo=bar'
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'supersecret'
 hazelcast::cluster_discovery: 'multicast'
+```
+
+##### AWS
+
+To a complete description of the method of discovery I encorage you to take a look to the Hazelcast documentation, which is available
+[here](https://docs.hazelcast.org/docs/3.9/manual/html-single/index.html#aws-cloud-discovery) these are the parameters:
+
+|Parameter|Description|Required|default|
+|---------|-----------|:------:|:-----:|
+|access_key|The AWS access key id|yes| |
+|secret_key|The AWS secret Key|yes| |
+|region|The AWS region|no| us-west-1 |
+|host_header|The Amazon host header domain|no| amazonaws.com |
+|sg_name|The identificator of a security group which allow access to the cluster instances|no|-|
+|tag_key|The key of the tag to filter the ec2 instances|no|-|
+|tag_value|The value of the tag key to filter the ec2 instances|no|-|
+
+
+```yaml
+---
+hazelcast::root_dir: '/opt'
+hazelcast::config_dir: '/etc/hazelcast'
+hazelcast::version: '3.9.4'
+hazelcast::service_ensure: 'running'
+hazelcast::manage_user: true
+hazelcast::user: 'hazelcast'
+hazelcast::group: 'hazelcast'
+hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
+hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
+hazelcast::java_options: '-Dfoo=bar'
+hazelcast::group_name: 'hzuser'
+hazelcast::group_password: 'supersecret'
+hazelcast::cluster_discovery: 'aws'
+hazelcast::cluster_discovery_aws:
+  access_key: XXXX
+  secret_key: XXXX
+  region: eu-west-1
+  host_header: amazonaws.com
+  security_group_name: sg-XXXXX
+  tag_key: hz_cluster
+  tag_value: development
 ```
 
 #### Custom TTLs

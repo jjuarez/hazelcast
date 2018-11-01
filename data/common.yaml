@@ -6,13 +6,13 @@ hazelcast::service_ensure: 'running'
 hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
-hazelcast::download_url: "https://download.hazelcast.com/download.jsp?version=hazelcast-%{lookup('hazelcast::version')}&type=tar&p="
+hazelcast::download_url: "https://download.hazelcast.com/download.jsp?version=hazelcast-%{lookup('hazelcast::version')}&type=tar"
 hazelcast::java: '/usr/bin/java'
 hazelcast::java_options: '-Djava.net.preferIPv4Stack=true -Dhazelcast.config=/etc/hazelcast/hazelcast.xml'
 hazelcast::classpath: []
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'hzpass'
-hazelcast::cluster_discovery: 'tcp'
+hazelcast::cluster_discovery: 'multicast'
 hazelcast::cluster_members: []
 hazelcast::cluster_discovery_aws: {}
 hazelcast::time_to_live_seconds: 0
