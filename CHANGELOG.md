@@ -10,6 +10,8 @@ All notable changes to this project will be documented in this file.
  * Ubuntu 16.04, 18.04, 18.10
  * Archlinux 4
 
+* Increases the test coverage
+
 ## Bugfixes
 
 ## Release 0.4.1
