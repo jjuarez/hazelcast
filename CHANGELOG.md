@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.5.0
+
+## Features
+* Adds support for a bunch of Linux distribution which support systemd as init, AYMK:
+ 
+ * Ubuntu 16.04, 18.04, 18.10
+ * Archlinux 4
+
+## Bugfixes
+
 ## Release 0.4.1
 
 ## Features

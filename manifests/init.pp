@@ -39,7 +39,6 @@ class hazelcast(
   Optional[Stdlib::Absolutepath]          $java,
   Optional[String]                        $java_options,
   Optional[Array[String]]                 $classpath,
-  Optional[String]                        $init_style,
   Optional[Stdlib::Ensure::Service]       $service_ensure,
   Optional[String]                        $group_name,
   Optional[String]                        $group_password,
@@ -64,6 +63,8 @@ class hazelcast(
   Optional[Stdlib::Httpurl]               $management_center_url,
 ){
 
+  include '::stdlib'
+
   $tar_file            = "hazelcast-${::hazelcast::version}.tar.gz"
   $tmp_file            = join(['/tmp', $::hazelcast::tar_file], '/')
   $install_dir         = join([$::hazelcast::root_dir, "hazelcast-${::hazelcast::version}"], '/')
@@ -74,6 +75,8 @@ class hazelcast(
   $server_config_file  = join([$::hazelcast::config_dir, 'hazelcast.xml'], '/')
   $client_config_file  = join([$::hazelcast::config_dir, 'hazelcast-client.xml'], '/')
   $complete_classpath  = join([$all_jar_file, $::hazelcast::classpath.flatten], ':')
+
+  $init_style          = $facts['service_provider']
 
   if $::hazelcast::cluster_discovery == 'aws' {
     # Check for mandatory configuration items

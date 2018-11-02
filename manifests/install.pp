@@ -37,7 +37,7 @@ class hazelcast::install inherits hazelcast {
     owner   => $::hazelcast::user,
     group   => $::hazelcast::group,
     mode    => '0750',
-    recurse => true
+    recurse => true,
   }
   -> file { $::hazelcast::cli:
     ensure  => present,

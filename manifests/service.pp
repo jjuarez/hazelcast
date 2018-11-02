@@ -3,23 +3,22 @@
 #
 class hazelcast::service inherits hazelcast {
 
-  case $::hazelcasts::init_style {
-    'systemd' : {
-      file { '/lib/systemd/system/hazelcast.service':
-        ensure  => present,
-        owner   => 'root',
-        group   => 'root',
-        mode    => '0644',
-        content => epp("${module_name}/service/hazelcast.service.systemd.epp"),
-      }
-      -> service { 'hazelcast':
-        ensure     => $::hazelcast::service_ensure,
-        hasrestart => true,
-        hasstatus  => true,
-        subscribe  => File[$::hazelcast::config_file],
-      }
+  if $::hazelcast::init_style == 'systemd' {
+    file { '/etc/systemd/system/hazelcast-server.service':
+      ensure  => present,
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0755',
+      content => epp("${module_name}/service/hazelcast.service.systemd.epp"),
     }
-
-    default: { fail("This service provider: ${facts.service_provider} is not supported") }
+    -> service { 'hazelcast-server':
+      ensure     => $::hazelcast::service_ensure,
+      hasrestart => true,
+      hasstatus  => true,
+      subscribe  => File[$::hazelcast::config_file],
+    }
+  }
+  else {
+    notify { "The service provider: ${::hazelcast::init_style} is not yet supported": }
   }
 }

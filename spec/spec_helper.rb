@@ -1,6 +1,6 @@
-
 require 'puppetlabs_spec_helper/module_spec_helper'
 require 'rspec-puppet-facts'
+require 'spec_helper_methods'
 
 begin
   require 'spec_helper_local' if File.file?(File.join(File.dirname(__FILE__), 'spec_helper_local.rb'))
@@ -9,6 +9,24 @@ rescue LoadError => loaderror
 end
 
 include RspecPuppetFacts
+
+if Dir.exist?(File.expand_path('../../lib', __FILE__))
+  require 'coveralls'
+  require 'simplecov'
+  require 'ss8nplecov-console'
+
+  SimpleCov.formaters = [
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::Console,
+  ]
+
+  SimpleCov.start do
+    track_files 'lib/**/*rb'
+    add_filter '/spec'
+    add_filter '/vendor'
+    add_filter '/.vendor'
+  end
+end
 
 default_facts = {
   puppetversion: Puppet.version,
@@ -28,9 +46,11 @@ end
 
 RSpec.configure do |c|
   c.default_facts = default_facts
-  c.before :each do
-    # set to strictest setting for testing
-    # by default Puppet runs at warning level
+  c.before(:each) do
     Puppet.settings[:strict] = :warning
+  end
+
+  c.after(:suite) do
+    RSpec::Puppet::Coverage.report!
   end
 end
