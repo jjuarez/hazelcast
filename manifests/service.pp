@@ -19,6 +19,6 @@ class hazelcast::service inherits hazelcast {
     }
   }
   else {
-    notify { "The service provider: ${::hazelcast::init_style} is not yet supported": }
+    fail('This service provider is not supported')
   }
 }
