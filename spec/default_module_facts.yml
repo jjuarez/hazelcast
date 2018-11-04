@@ -1,3 +1,3 @@
 ---
-example: value
+service_provider: systemd
 ...
