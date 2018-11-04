@@ -9,10 +9,10 @@ describe 'hazelcast' do
         facts
       end
 
-      context 'with defaults' do
+      context 'with parameters' do
         it { is_expected.to compile.with_all_deps }
 
-        describe 'with default parameters' do
+        describe 'by default' do
           it { is_expected.to compile.with_all_deps }
 
           it { is_expected.to contain_class('hazelcast') }
@@ -44,21 +44,27 @@ describe 'hazelcast' do
 
           it { is_expected.to contain_file('/opt/hazelcast').with(ensure: 'link') }
 
-          it { is_expected.to contain_class('hazelcast::service') }
+          if ['centos-7-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'ubuntu-18.10-x86_64'].include?(os)
+            it {
+              is_expected.to contain_file('/etc/systemd/system/hazelcast-server.service')
+                .with(ensure: 'present',
+                      owner:  'root',
+                      group:  'root',
+                      mode:   '0755')
+            }
 
-          # if ['centos-7-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'ubuntu-18.10-x86_64'].include?(os)
-          #   it {
-          #     is_expected.to contain_file('/etc/systemd/system/hazelcast-server.service')
-          #       .with(ensure: 'present',
-          #             owner:  'root',
-          #             group:  'root',
-          #             mode:   '0755')
-          #   }
-          #
-          #   it { is_expected.to contain_service('hazelcast-server').with(ensure: 'running') }
-          # else
-          #   it { is_expected.to contain_notify }
-          # end
+            it {
+              is_expected.to contain_service('hazelcast-server')
+                .with(ensure: 'running',
+                      hasrestart: true,
+                      hasstatus: true)
+            }
+
+            it {
+              is_expected.to contain_service('hazelcast-server')
+                .that_subscribes_to('File[/etc/hazelcast/hazelcast.xml]')
+            }
+          end
         end
       end
 
@@ -82,7 +88,7 @@ describe 'hazelcast' do
           }
         end
 
-        describe 'with specific params' do
+        describe 'specific' do
           it { is_expected.to compile.with_all_deps }
 
           it { is_expected.to contain_class('hazelcast') }
@@ -114,21 +120,26 @@ describe 'hazelcast' do
 
           it { is_expected.to contain_file('/opt/hazelcast').with(ensure: 'link') }
 
-          it { is_expected.to contain_class('hazelcast::service') }
+          if ['centos-7-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'ubuntu-18.10-x86_64'].include?(os)
+            it {
+              is_expected.to contain_file('/etc/systemd/system/hazelcast-server.service')
+                .with(ensure: 'present',
+                      owner:  'root',
+                      group:  'root',
+                      mode:   '0755')
+            }
+            it {
+              is_expected.to contain_service('hazelcast-server')
+                .with(ensure: 'running',
+                      hasrestart: true,
+                      hasstatus: true)
+            }
 
-          # if ['centos-7-x86_64', 'debian-8-x86_64', 'debian-9-x86_64', 'redhat-7-x86_64', 'ubuntu-16.04-x86_64', 'ubuntu-18.04-x86_64', 'ubuntu-18.10-x86_64'].include?(os)
-          #   it {
-          #     is_expected.to contain_file('/etc/systemd/system/hazelcast-server.service')
-          #       .with(ensure: 'present',
-          #             owner:  'root',
-          #             group:  'root',
-          #             mode:   '0755')
-          #   }
-          #
-          #   it { is_expected.to contain_service('hazelcast-server').with(ensure: 'running') }
-          # else
-          #   it { is_expected.to contain_notify }
-          # end
+            it {
+              is_expected.to contain_service('hazelcast-server')
+                .that_subscribes_to('File[/etc/hazelcast/hazelcast.xml]')
+            }
+          end
         end
       end
     end
