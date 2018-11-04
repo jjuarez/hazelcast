@@ -182,7 +182,6 @@ I think to use the module have to be pretty easy, just add it to your Puppetfile
 The module deploy a small CLI util to check the status of the cluster, this is deployed among the hazelcast package, for example, (with root_dir=/opt and version=3.9.4) it will be deployed in:
 
 ```
-/opt/hazelcast-3.9.3/bin/hazelcast-cli.sh
 /opt/hazelcast/bin/hazelcast-cli.sh
 ```
 
@@ -205,8 +204,8 @@ The module supports only **OS distributions** based on systemd, as you might kno
 * Debian Jessie
 * Red-Hat
 * CentOS 7
-
-until now, but we've plans to support other distributions like Ubuntu ASAP.
+* Ubuntu: 16.04, 18.04, 18.10
+* Archlinux
 
 ## Cluster discovery mechanims supported:
 
