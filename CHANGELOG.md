@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.5.2
+
+## Features
+
+## Bugfixes
+* Solves an issue related with the systemd unit file permissions
+
+## Release 0.5.1
+
+## Features
+
+## Bugfixes
+* Solves mainly some documentation isssues
+
 ## Release 0.5.0
 
 ## Features
