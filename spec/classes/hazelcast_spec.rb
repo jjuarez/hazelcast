@@ -50,7 +50,7 @@ describe 'hazelcast' do
                 .with(ensure: 'present',
                       owner:  'root',
                       group:  'root',
-                      mode:   '0755')
+                      mode:   '0644')
             }
 
             it {
@@ -126,7 +126,7 @@ describe 'hazelcast' do
                 .with(ensure: 'present',
                       owner:  'root',
                       group:  'root',
-                      mode:   '0755')
+                      mode:   '0644')
             }
             it {
               is_expected.to contain_service('hazelcast-server')

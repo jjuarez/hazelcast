@@ -8,7 +8,7 @@ class hazelcast::service inherits hazelcast {
       ensure  => present,
       owner   => 'root',
       group   => 'root',
-      mode    => '0755',
+      mode    => '0644',
       content => epp("${module_name}/service/hazelcast.service.systemd.epp"),
     }
     -> service { 'hazelcast-server':
