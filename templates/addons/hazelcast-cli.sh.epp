@@ -1,3 +1,23 @@
-#!/bin/sh
+#!/bin/bash
 
-<%= $::hazelcast::java %> -Djava.net.preferIPv4Stack=true -Dhazelcast.config=<%= $::hazelcast::client_config_file %> -classpath <%= $::hazelcast::config_dir %>:<%= $::hazelcast::all_jar_file %> com.hazelcast.client.console.ClientConsoleApp
+set -eu
+
+JAVA="<%= $::hazelcast::java %>"
+
+
+##
+# Exit from the script
+utils::die( ) {
+  local message="${1}"
+  local exit_code=${2:-0}
+
+  [[ -n "${message}" ]] && echo -e "${message}" 2>&1
+  exit ${exit_code}
+}
+
+
+##
+# ::main::
+[[ -x "${JAVA}" ]] || utils::die "The executable ${JAVA} does not exist" 1
+
+${JAVA} -Dhazelcast.config=<%= $::hazelcast::client_config_file %> -classpath <%= $::hazelcast::config_dir %>:<%= $::hazelcast::server_classpath %> com.hazelcast.client.console.ClientConsoleApp

@@ -1,4 +1,0 @@
-<%- |
-  String $complete_classpath
-| -%>
-CLASSPATH=<%= $complete_classpath %>

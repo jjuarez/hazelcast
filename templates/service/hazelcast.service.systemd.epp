@@ -12,8 +12,7 @@ Group=<%= $::hazelcast::group %>
 WorkingDirectory=<%= $::hazelcast::install_dir %>
 ExecStartPre=/bin/mkdir -p /run/hazelcast
 ExecStartPre=/bin/chown -R <%= $::hazelcast::user %>.<%= $::hazelcast::group %> /run/hazelcast
-EnvironmentFile=<%= $::hazelcast::config_dir %>/hazelcast.conf
-ExecStart=<%= $::hazelcast::java %> <%= $::hazelcast::java_options %> com.hazelcast.core.server.StartServer
+ExecStart=<%= $::hazelcast::java %> <%= $::hazelcast::java_options %> -classpath <%= $::hazelcast::server_classpath %> com.hazelcast.core.server.StartServer
 ExecStop=/bin/kill --signal TERM $MAINPID
 ExecReload=/bin/kill --signal HUP $MAINPID
 KillMode=process

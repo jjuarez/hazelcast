@@ -12,18 +12,16 @@ class hazelcast::config inherits hazelcast {
   file { $::hazelcast::config_dir:
     ensure => directory,
   }
-  -> file { $::hazelcast::config_file:
-    ensure  => present,
-    content => epp("${module_name}/config/hazelcast.conf.epp", {
-      'complete_classpath' => $::hazelcast::complete_classpath,
-    }),
-  }
   -> file { $::hazelcast::server_config_file:
     ensure  => present,
     content => epp("${module_name}/config/hazelcast.xml.epp"),
   }
-  -> file { $::hazelcast::client_config_file:
-    ensure  => present,
-    content => epp("${module_name}/config/hazelcast-client.xml.epp"),
+
+  if $::hazelcast::install_client_addons {
+    file { $::hazelcast::client_config_file:
+      ensure  => present,
+      content => epp("${module_name}/config/hazelcast-client.xml.epp"),
+      require => File[$::hazelcast::config_dir],
+    }
   }
 }

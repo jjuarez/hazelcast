@@ -49,7 +49,7 @@ class { '::hazelcast':
   user              => 'hazelcast',
   group             => 'hazelcast',
   download_url      => 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p=',
-  java_home         => '/usr/lib/jvm/jre1.8.0',
+  java              => '/usr/lib/jvm/jre1.8.0/bin/java',
   java_options      => '-Xss256k -Xms64m -Xmx128m -XX:+UseG1GC -Dsome.awesome.superkey=value',
   group_name        => 'hzuser',
   group_password    => 'supersecret',
@@ -74,7 +74,7 @@ hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
 hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
-hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
+hazelcast::java: '/usr/lib/jvm/jre1.8.0'
 hazelcast::java_options: '-Xss256k -Xms64m -Xmx128m -XX:+UseG1GC -Dsome.awesome.superkey=value'
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'supersecret'
@@ -97,7 +97,7 @@ hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
 hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
-hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
+hazelcast::java: '/usr/lib/jvm/jre1.8.0'
 hazelcast::java_options: '-Dfoo=bar'
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'supersecret'
@@ -131,7 +131,7 @@ hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
 hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
-hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
+hazelcast::java: '/usr/lib/jvm/jre1.8.0'
 hazelcast::java_options: '-Dfoo=bar'
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'supersecret'
@@ -153,7 +153,7 @@ Another example of configuration but this one focused on the custom TTL configur
 ---
 hazelcast::version: '3.9.4'
 hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
-hazelcast::java_home: '/usr/lib/jvm/jre1.8.0'
+hazelcast::java: '/usr/lib/jvm/jre1.8.0'
 hazelcast::group_name: 'hzuser'
 hazelcast::group_password: 'supersecret'
 hazelcast::cluster_discovery: 'multicast'

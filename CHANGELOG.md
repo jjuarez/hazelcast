@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.6.0
+
+## Features
+* Makes optional the installation of the client console stuff
+* New approach with the systemd, avoiding the use of additional files to store enviroment variables, you can read more about this subject [here](https://unix.stackexchange.com/questions/418851/location-to-place-systemd-service-environmentfile-when-creating-debian-package)
+
+## Bugfixes
+* Solves an issue related with the service subscription
+
 ## Release 0.5.2
 
 ## Features

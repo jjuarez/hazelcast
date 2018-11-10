@@ -15,7 +15,7 @@ class hazelcast::service inherits hazelcast {
       ensure     => $::hazelcast::service_ensure,
       hasrestart => true,
       hasstatus  => true,
-      subscribe  => File[$::hazelcast::config_file],
+      subscribe  => File[$::hazelcast::server_config_file],
     }
   }
   else {

@@ -13,15 +13,13 @@ class hazelcast::install inherits hazelcast {
   }
 
   if $::hazelcast::manage_user {
-    ensure_resource('group', $::hazelcast::group, {
+    user { $::hazelcast::user:
       ensure => present,
-    })
-
-    ensure_resource('user', $::hazelcast::user, {
-      ensure  => present,
-      gid     => $::hazelcast::group,
-      require => Group[$::hazelcast::group],
-    })
+      gid    => $::hazelcast::group,
+    }
+    ->group { $::hazelcast::group:
+      ensure => present,
+    }
   }
 
   archive { $::hazelcast::tmp_file:
@@ -39,12 +37,16 @@ class hazelcast::install inherits hazelcast {
     mode    => '0750',
     recurse => true,
   }
-  -> file { $::hazelcast::cli:
-    ensure  => present,
-    content => epp("${module_name}/addons/hazelcast-cli.sh.epp"),
-  }
   -> file { $::hazelcast::link_dir:
     ensure => link,
     target => $::hazelcast::install_dir,
+  }
+
+  if $::hazelcast::install_client_addons {
+    file { $::hazelcast::cli:
+      ensure  => present,
+      content => epp("${module_name}/addons/hazelcast-cli.sh.epp"),
+      require => File[$::hazelcast::install_dir],
+    }
   }
 }
