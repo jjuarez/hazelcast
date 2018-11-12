@@ -34,6 +34,30 @@ include '::hazelcast'
 ```
 
 ### Setup examples
+
+Be aware about the exit code that hazelcast use, it's not 0, it's 143, so after a service stop the systemd stayed as failed,
+anyway after the 0.6.1 version ofthe module this allows you to configure this detail in the systemd unit, and also the time to
+wait during a restart operation.
+
+Example of these custom configurations
+
+```yaml
+hazelcast::config_dir: '/etc/hazelcast'
+hazelcast::version: '3.9.4'
+hazelcast::service_ensure: 'running'
+hazelcast::service_successful_exit_status: 143 # This is the default value
+hazelcast::service_restart_timeout: 30 # This is the default value, 30 seconds
+hazelcast::manage_user: true
+hazelcast::user: 'hazelcast'
+hazelcast::group: 'hazelcast'
+hazelcast::download_url: 'http://download.hazelcast.com/download.jsp?version=3.9.4&type=tar&p='
+hazelcast::java: '/usr/lib/jvm/jre1.8.0'
+hazelcast::java_options: '-Xss256k -Xms64m -Xmx128m -XX:+UseG1GC -Dsome.awesome.superkey=value'
+hazelcast::group_name: 'hzuser'
+hazelcast::group_password: 'supersecret'
+hazelcast::cluster_discovery: 'multicast'
+```
+
 #### Cluster discovery
 ##### TCP
 
