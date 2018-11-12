@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.6.1
+
+## Features
+* Makes configuration some custom parameters of the hazelcast servers using systemd as init system, allows you to configure a 
+custom sucessfull exit code and the time to wait during the restart operations of the service
+
+## Bugfixes
+* Solves the fault status of the systemd unit after an stop operation, because hazelcast use to exist with an exit code different than 0, amazing
+
 ## Release 0.6.0
 
 ## Features
