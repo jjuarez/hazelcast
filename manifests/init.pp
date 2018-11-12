@@ -6,27 +6,29 @@
 # @example Declaring the class
 #   include '::hazelcast'
 #
-# @param root_dir                  [Stdlib::Absolutepath]    The root directory of the hazelcast installation, by default /opt
-# @param config_dir                [Stdlib::Absolutepath]    The configuration directory where to store the config files
-# @param version                   [String]                  The version of the hazelcast (we support the product from the 3.9.2 version)
-# @param download_url              [Stdlib::Httpurl]         The download URL of the package
-# @param manage_users              [Boolean]                 This allow us to create the group and user to manage the hazelcast process
-# @param user                      [String]                  The user of the hazelcast process
-# @param group                     [String]                  The group of the hazelcast process
-# @param java                      [Stdlib::Absolutepath]    The JAVA_HOME environment variable
-# @param java_options              [String]                  This is a "free" string to add your favourite JVM's options
-# @param classpath                 [Array[String]]           The classpath to launch the JVM
-# @param service_ensure            [Stdlib::Ensure::Service] The status desired for the service
-# @param group_name                [String]                  The user of the cluster
-# @param group_password            [String]                  The password of the cluster user
-# @param cluster_discovery         [Enum[tcp,multicast,aws]  The discovery mechanims to use in the cluster
-# @param cluster_members           [Array[String]]           The list of the members which belong to the cluster
-# @param cluster_discovery_aws     [Struct]                  The configuration to make possible the AWS service discovery
-# @param install_client_addons     [Boolean]                 Switch to allow the installation of the client console
-# @param time_to_live_seconds      [Integer]                 The TTL gobal behaviour
-# @param custom_ttls               [Array[Struct]]           The list of the custom items TTLs
-# @param management_center_enabled [Boolean]                 The switch to enable/disable the hazelcast management center configuration
-# @param management_center_url     [Stdlib::Httpurl]         The URL to configure as the hazelcast management center endpoint
+# @param root_dir                    [Stdlib::Absolutepath]    The root directory of the hazelcast installation, by default /opt
+# @param config_dir                  [Stdlib::Absolutepath]    The configuration directory where to store the config files
+# @param version                     [String]                  The version of the hazelcast (we support the product from the 3.9.2 version)
+# @param download_url                [Stdlib::Httpurl]         The download URL of the package
+# @param manage_users                [Boolean]                 This allow us to create the group and user to manage the hazelcast process
+# @param user                        [String]                  The user of the hazelcast process
+# @param group                       [String]                  The group of the hazelcast process
+# @param java                        [Stdlib::Absolutepath]    The JAVA_HOME environment variable
+# @param java_options                [String]                  This is a "free" string to add your favourite JVM's options
+# @param classpath                   [Array[String]]           The classpath to launch the JVM
+# @param service_ensure              [Stdlib::Ensure::Service] The status desired for the service
+# @param service_success_exit_status [Integer]                 The success exit code from the hazelcast process
+# @param service_restart_timeout     [Integer]                 The time to wait doing a restart operation
+# @param group_name                  [String]                  The user of the cluster
+# @param group_password              [String]                  The password of the cluster user
+# @param cluster_discovery           [Enum[tcp,multicast,aws]  The discovery mechanims to use in the cluster
+# @param cluster_members             [Array[String]]           The list of the members which belong to the cluster
+# @param cluster_discovery_aws       [Struct]                  The configuration to make possible the AWS service discovery
+# @param install_client_addons       [Boolean]                 Switch to allow the installation of the client console
+# @param time_to_live_seconds        [Integer]                 The TTL gobal behaviour
+# @param custom_ttls                 [Array[Struct]]           The list of the custom items TTLs
+# @param management_center_enabled   [Boolean]                 The switch to enable/disable the hazelcast management center configuration
+# @param management_center_url       [Stdlib::Httpurl]         The URL to configure as the hazelcast management center endpoint
 #
 class hazelcast(
   Optional[Stdlib::Absolutepath]          $root_dir,
@@ -40,6 +42,8 @@ class hazelcast(
   Optional[String]                        $java_options,
   Optional[Array[String]]                 $classpath,
   Optional[Stdlib::Ensure::Service]       $service_ensure,
+  Optional[Integer]                       $service_success_exit_status,
+  Optional[Integer]                       $service_restart_timeout,
   Optional[String]                        $group_name,
   Optional[String]                        $group_password,
   Optional[Enum[tcp,multicast,aws]]       $cluster_discovery,
