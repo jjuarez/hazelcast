@@ -3,6 +3,9 @@ hazelcast::version: '3.9.4'
 hazelcast::root_dir: '/opt'
 hazelcast::config_dir: '/etc/hazelcast'
 hazelcast::service_ensure: 'running'
+hazelcast::service_success_exit_status: 143
+hazelcast::service_restart_timeout: 30
+hazelcast::service_ensure: 'running'
 hazelcast::manage_user: true
 hazelcast::user: 'hazelcast'
 hazelcast::group: 'hazelcast'
