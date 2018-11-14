@@ -13,12 +13,12 @@ class hazelcast::install inherits hazelcast {
   }
 
   if $::hazelcast::manage_user {
-    user { $::hazelcast::user:
+    group { $::hazelcast::group:
+      ensure => present,
+    }
+    ->user { $::hazelcast::user:
       ensure => present,
       gid    => $::hazelcast::group,
-    }
-    ->group { $::hazelcast::group:
-      ensure => present,
     }
   }
 
