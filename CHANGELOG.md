@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.6.2
+
+## Features
+* Fixes the issue with the bad dependency between the hazelcast user and group
+
 ## Release 0.6.1
 
 ## Features
