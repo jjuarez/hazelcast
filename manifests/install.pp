@@ -13,13 +13,15 @@ class hazelcast::install inherits hazelcast {
   }
 
   if $::hazelcast::manage_user {
-    group { $::hazelcast::group:
+    ensure_resource('group', $::hazelcast::group, {
       ensure => present,
-    }
-    ->user { $::hazelcast::user:
-      ensure => present,
-      gid    => $::hazelcast::group,
-    }
+    })
+
+    ensure_resource('user', $::hazelcast::user, {
+      ensure  => present,
+      gid     => $::hazelcast::group,
+      require => Group[$::hazelcast::group],
+    })
   }
 
   archive { $::hazelcast::tmp_file:
