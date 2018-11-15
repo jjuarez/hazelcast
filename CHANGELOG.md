@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## Release 0.6.3
+
+## Features
+* Extends the tests to cover the corner case with the dependency between the user an its group
+
+## Release 0.6.1
+
+## Features
+* Makes configuration some custom parameters of the hazelcast servers using systemd as init system, allows you to configure a 
+custom sucessfull exit code and the time to wait during the restart operations of the service
+
 ## Release 0.6.2
 
 ## Features
