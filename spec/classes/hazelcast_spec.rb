@@ -26,8 +26,8 @@ describe 'hazelcast' do
 
           it {
             is_expected.to contain_user('hazelcast')
-              .with('gid'     => 'hazelcast',
-                   'require' => 'Group[hazelcast]')
+              .with(gid:     'hazelcast',
+                    require: 'Group[hazelcast]')
           }
 
           it { is_expected.to contain_archive('/tmp/hazelcast-3.9.4.tar.gz') }
@@ -103,8 +103,8 @@ describe 'hazelcast' do
 
           it {
             is_expected.to contain_user('hz_user')
-              .with('gid'     => 'hz_group',
-                   'require' => 'Group[hz_group]')
+              .with(gid:     'hz_group',
+                    require: 'Group[hz_group]')
           }
 
           it { is_expected.to contain_archive('/tmp/hazelcast-3.9.3.tar.gz') }
